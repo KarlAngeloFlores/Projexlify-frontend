@@ -1,0 +1,251 @@
+import React, { useEffect, useState } from "react";
+import { Plus, FolderOpen, ChevronDown } from "lucide-react";
+import authService from "../services/auth";
+import projectsService from "../services/projects";
+import ProjectCard from "../components/home/ProjectCard";
+import LoadingScreen from "../components/LoadingScreen";
+import CreateProjectModal from "../components/home/CreateProjectModal";
+import UpdateProjectModal from "../components/home/UpdateProjectModal";
+import DeleteProjectModal from "../components/home/DeleteProjectModal";
+import ProjectTable from "../components/home/ProjectTable";
+import Filtering from "../components/home/Filtering";
+
+const Home = () => {
+  const [projects, setProjects] = useState([]);
+  const [member, setMember] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [viewMode, setViewMode] = useState("cards");
+
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const handleFetchHome = async () => {
+    try {
+      setLoading(true);
+      const memberData = await authService.getMember();
+      const projectsData = await projectsService.getAllProjects();
+      console.log(memberData);
+
+      setMember(memberData.data);
+      setProjects(projectsData.data || []);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCreateProject = async (name, description) => {
+    try {
+      const data = await projectsService.createProject(name, description);
+      console.log(data.project);
+
+      setProjects([...projects, data.project]);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
+  const handleOpenUpdate = (project) => {
+    setSelectedProject(project);
+    setShowUpdateModal(true);
+  };
+
+  const handleUpdateProject = async (
+    projectId,
+    name,
+    description,
+    newStatus,
+    remark
+  ) => {
+    try {
+      const data = await projectsService.updateProject(
+        projectId,
+        name,
+        description,
+        newStatus,
+        remark
+      );
+
+      const newProject = data.project;
+      console.log(data.project);
+
+      setProjects((prev) =>
+        prev.map((project) =>
+          project.id === projectId ? { ...project, ...newProject } : project
+        )
+      );
+    } catch (error) {
+      console.log(error);
+
+      throw error;
+    }
+  };
+
+  const handleOpenDelete = (project) => {
+    setSelectedProject(project);
+    setShowDeleteModal(true);
+  };
+
+  const handleSoftDelete = async (projectId, remark) => {
+    try {
+      const data = await projectsService.deleteProject(projectId, remark);
+      console.log(data);
+
+      setProjects((prev) => prev.filter((project) => project.id !== projectId));
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    handleFetchHome();
+  }, []);
+
+  // Filter projects based on search and status
+  const filteredProjects = projects.filter((project) => {
+    const name = project.name || "";
+    const description = project.description || "";
+    const status = project.status || "";
+
+    const matchesSearch =
+      name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = statusFilter === "all" || status === statusFilter;
+
+    return matchesSearch && matchesStatus;
+  });
+
+  if (loading) {
+    return <LoadingScreen message="Loading your projects..." />;
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-950 text-white">
+      {/* Header */}
+      <div className="border-b border-gray-800 bg-gray-900/50 backdrop-blur-md sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                My Projects
+              </h1>
+              <p className="text-gray-400 mt-1">
+                Welcome back! You have{" "}
+                {filteredProjects.length} projects.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <div className="bg-gradient-to-r from-blue-400 to-purple-400 w-10 h-10 rounded-full flex items-center justify-center">
+                {member.username ? member.username[0] : "U"}
+              </div>
+              <span>{member ? member.username : "User"}</span>
+              <ChevronDown />
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Filters and Search */}
+        <Filtering
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+          setShowCreateModal={setShowCreateModal}
+        />
+
+        {/* Projects Grid */}
+        {/* Projects Grid / Table */}
+        {/* Projects Grid / Views */}
+        {filteredProjects.length === 0 ? (
+          <div className="text-center py-16 bg-gray-900/40 rounded-lg border border-gray-700">
+            <FolderOpen className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-gray-400 mb-2">
+              {searchTerm || statusFilter !== "all"
+                ? "No matching projects"
+                : "No projects yet"}
+            </h3>
+            <p className="text-gray-500 mb-6">
+              {searchTerm || statusFilter !== "all"
+                ? "Try adjusting your search or filters"
+                : "Create your first project to get started"}
+            </p>
+            {!searchTerm && statusFilter === "all" && (
+              <button
+                onClick={() => setShowCreateModal(true)}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all transform hover:scale-105 flex items-center mx-auto"
+              >
+                <Plus className="w-5 h-5 mr-2" />
+                Create Project
+              </button>
+            )}
+          </div>
+        ) : (
+          <>
+
+            {/**CARD VIEW */}
+            {viewMode === "cards" && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredProjects.map((project) => (
+                  <ProjectCard
+                    key={`project-${project.id}`}
+                    project={project}
+                    handleOpenUpdate={handleOpenUpdate}
+                    handleOpenDelete={handleOpenDelete}
+                    handleDelete={handleSoftDelete}
+                  />
+                ))}
+              </div>
+            )}
+            
+            {/**TABLE VIEW */}
+            {viewMode === "table" && (
+              <ProjectTable
+                projects={filteredProjects}
+                handleOpenUpdate={handleOpenUpdate}
+                handleOpenDelete={handleOpenDelete}
+              />
+            )}
+            
+          </>
+        )}
+      </div>
+
+      <CreateProjectModal
+        isOpen={showCreateModal}
+        onClose={() => setShowCreateModal(false)}
+        onCreateProject={handleCreateProject}
+      />
+
+      <UpdateProjectModal
+        isOpen={showUpdateModal}
+        onClose={() => setShowUpdateModal(false)}
+        project={selectedProject}
+        onUpdateProject={handleUpdateProject}
+      />
+
+      <DeleteProjectModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        project={selectedProject}
+        onDeleteProject={handleSoftDelete}
+      />
+
+    </div>
+  );
+};
+
+export default Home;
