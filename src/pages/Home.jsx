@@ -9,8 +9,12 @@ import UpdateProjectModal from "../components/home/UpdateProjectModal";
 import DeleteProjectModal from "../components/home/DeleteProjectModal";
 import ProjectTable from "../components/home/ProjectTable";
 import Filtering from "../components/home/Filtering";
+import ErrorPage from "./ErrorPage";
+import Logout from "../components/Logout";
 
 const Home = () => {
+
+  const [error, setError] = useState('');
   const [projects, setProjects] = useState([]);
   const [member, setMember] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -35,6 +39,7 @@ const Home = () => {
       setProjects(projectsData.data || []);
     } catch (error) {
       console.log(error);
+      setError(error);
     } finally {
       setLoading(false);
     }
@@ -105,12 +110,8 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    handleFetchHome();
-  }, []);
-
-  // Filter projects based on search and status
-  const filteredProjects = projects.filter((project) => {
+    // Filter projects based on search and status
+    const filteredProjects = projects.filter((project) => {
     const name = project.name || "";
     const description = project.description || "";
     const status = project.status || "";
@@ -122,6 +123,14 @@ const Home = () => {
 
     return matchesSearch && matchesStatus;
   });
+
+  useEffect(() => {
+    handleFetchHome();
+  }, []);
+
+  if(error) {
+    return <ErrorPage />
+  }
 
   if (loading) {
     return <LoadingScreen message="Loading your projects..." />;
@@ -143,13 +152,7 @@ const Home = () => {
               </p>
             </div>
 
-            <div className="flex items-center gap-2">
-              <div className="bg-gradient-to-r from-blue-400 to-purple-400 w-10 h-10 rounded-full flex items-center justify-center">
-                {member.username ? member.username[0] : "U"}
-              </div>
-              <span>{member ? member.username : "User"}</span>
-              <ChevronDown />
-            </div>
+        <Logout user={member}/>
 
           </div>
         </div>

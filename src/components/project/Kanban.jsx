@@ -1,122 +1,84 @@
-import React, { useState } from "react"
 import {
   DndContext,
   closestCenter,
-} from "@dnd-kit/core"
-import {
-  SortableContext,
-  useSortable,
-  arrayMove,
-} from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities"
+} from "@dnd-kit/core";
 
-const statuses = ["todo", "in_progress", "done"]
+import KanbanColumn from "../../components/project/KanbanColumn";
+import tasksService from "../../services/tasks";
 
-// Individual Task Card
-const TaskCard = ({ task }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-  } = useSortable({ id: task.id })
+const Kanban = ({ tasks, setTasks, projectId }) => {
+  const syncPositionStatus = async (tasks, taskId, newStatus) => {
+    try {
+      
+      const result = await tasksService.syncPositionStatus(tasks, taskId, newStatus, projectId);
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      className="p-3 bg-gray-800 text-white rounded-lg shadow mb-2 cursor-grab"
-    >
-      <p className="font-semibold">{task.name}</p>
-      <p className="text-sm text-gray-400">{task.contents}</p>
-    </div>
-  )
-}
+const handleDragEnd = async (event) => {
+  const { active, over } = event;
+  if (!over) return;
 
-// Kanban Board
-const KanbanBoard = ({ projectId, initialTasks, onUpdateStatus }) => {
-  const [tasks, setTasks] = useState(initialTasks)
+  const taskId = parseInt(active.id);
+  const newStatus = over.id;
 
-  const handleDragEnd = (event) => {
-    const { active, over } = event
-    if (!over) return
+  // 1️⃣ Prepare updated tasks outside setTasks
+  let updatedTasks;
+  let withPositions;
+  let changedTask;
 
-    const taskId = active.id
-    const newStatus = over.id // column id
+  setTasks((prevTasks) => {
+    updatedTasks = prevTasks.map((task) =>
+      task.id === taskId ? { ...task, status: newStatus } : task
+    );
 
-    // If already in the same column, do nothing
-    const task = tasks.find((t) => t.id === taskId)
-    if (!task || task.status === newStatus) return
+    withPositions = updatedTasks.map((task, _, arr) => {
+      const sameColumn = arr.filter((t) => t.status === task.status);
+      const newIndex = sameColumn.findIndex((t) => t.id === task.id);
+      return { ...task, position: newIndex };
+    });
 
-    // Update locally
-    setTasks((prev) =>
-      prev.map((t) =>
-        t.id === taskId ? { ...t, status: newStatus } : t
-      )
-    )
+    changedTask = withPositions.find((t) => t.id === taskId);
 
-    // API call
-    onUpdateStatus(projectId, taskId, newStatus)
+    return withPositions;
+  });
+
+  //API call OUTSIDE setTasks → avoids double call in StrictMode
+  if (changedTask) {
+    // console.log("PROJECTID:", projectId);
+    // console.log("Changed task:", changedTask);
+    console.log(withPositions);
+
+    await syncPositionStatus(withPositions, changedTask.id, changedTask.status);
   }
+};
 
   return (
-    <DndContext
-      collisionDetection={closestCenter}
-      onDragEnd={handleDragEnd}
-    >
-      <div className="grid grid-cols-3 gap-6 p-6 h-screen bg-gray-950">
-        {statuses.map((status) => (
-          <div
-            key={status}
-            id={status}
-            className="bg-gray-900 rounded-xl p-4 border border-gray-700 flex flex-col"
-          >
-            <h2 className="text-lg font-bold text-white capitalize mb-3">
-              {status.replace("_", " ")}
-            </h2>
-            <SortableContext
-              items={tasks
-                .filter((t) => t.status === status)
-                .map((t) => t.id)}
-            >
-              {tasks
-                .filter((task) => task.status === status)
-                .map((task) => (
-                  <TaskCard key={task.id} task={task} />
-                ))}
-            </SortableContext>
-          </div>
-        ))}
+    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+      <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
+        <KanbanColumn
+          id="todo"
+          title="To Do"
+          tasks={tasks.filter((t) => t.status === "todo")}
+          color="#f97316"
+        />
+        <KanbanColumn
+          id="in_progress"
+          title="In Progress"
+          tasks={tasks.filter((t) => t.status === "in_progress")}
+          color="#3b82f6"
+        />
+        <KanbanColumn
+          id="done"
+          title="Done"
+          tasks={tasks.filter((t) => t.status === "done")}
+          color="#22c55e"
+        />
       </div>
     </DndContext>
-  )
+  );
 }
 
-// Demo Page
-const Kanban = () => {
-  return (
-    <KanbanBoard
-      projectId="8"
-      initialTasks={[
-        { id: "1", name: "Task 1", contents: "Do something", status: "todo" },
-        { id: "2", name: "Task 2", contents: "Another task", status: "in_progress" },
-        { id: "3", name: "Task 3", contents: "Finish project", status: "done" },
-      ]}
-      onUpdateStatus={async (projectId, taskId, newStatus) => {
-        console.log("Update task", taskId, "to", newStatus, "for project", projectId)
-        // Here you would call your API, e.g.:
-        // await fetch(`/api/tasks/${taskId}`, { method: "PATCH", body: JSON.stringify({ projectId, newStatus }) })
-      }}
-    />
-  )
-}
-
-export default Kanban
+export default Kanban;

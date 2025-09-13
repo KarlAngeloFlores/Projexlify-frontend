@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Search, Filter, Calendar, ArrowLeft, ListTodo, ChevronDown, History } from 'lucide-react';
+import { ArrowLeft, ChevronDown, History } from 'lucide-react';
 // import TaskTable from './TaskTable';
 import { useNavigate, useParams } from 'react-router-dom';
 import TaskTable from '../components/history/TaskTable';
 import logService from '../services/logs';
-import projectsService from '../services/projects';
 import Filtering from '../components/history/Filtering';
 import authService from '../services/auth';
 import LoadingScreen from '../components/LoadingScreen';
 import ErrorPage from '../pages/ErrorPage';
+import Logout from '../components/Logout';
 
 const HistoryPage = () => {
 
@@ -61,12 +61,6 @@ const HistoryPage = () => {
     return (<LoadingScreen message='Loading project history...'/>)
   }
 
-  // Format date
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  };
-
   // Filter
   const filteredData = taskHistory.filter(item => {
     const matchesSearch =
@@ -108,13 +102,8 @@ return (
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              <div className="bg-gradient-to-r from-blue-400 to-purple-400 w-10 h-10 rounded-full flex items-center justify-center">
-                {user?.username ? user.username[0] : 'U'}
-              </div>
-              <span>{user ? user.username : "User"}</span>
-              <ChevronDown />
-            </div>
+            <Logout user={user}/>
+
           </div>
         </div>
       </div>
@@ -132,7 +121,6 @@ return (
         {/* Table */}
         <TaskTable
           data={paginatedData}
-          formatDate={formatDate}
           filteredLength={filteredData.length}
           currentLength={paginatedData.length}
         />

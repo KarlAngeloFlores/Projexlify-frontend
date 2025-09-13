@@ -8,8 +8,6 @@ import authService from '../services/auth';
 const AuthPage = () => {
 
     const [currentAuth, setCurrentAuth] = useState('login');
-
-    //temporary storage for register
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
@@ -29,7 +27,6 @@ const AuthPage = () => {
         <NavHeader />
         <section className='h-screen'>
             {currentAuth === 'login' && <LoginForm setCurrentAuth={setCurrentAuth} /> }
-
             {currentAuth === 'register' && <RegisterForm setCurrentAuth={setCurrentAuth} setEmail={setEmail} setPassword={setPassword} setToken={setToken}/>}
             {currentAuth === 'verification' && <VerificationForm type={'verify_account'} handleVerification={handleVerification} email={email} />}
         </section>

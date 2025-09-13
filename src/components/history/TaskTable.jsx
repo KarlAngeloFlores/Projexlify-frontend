@@ -1,7 +1,7 @@
 import { Calendar } from "lucide-react";
 import TaskRow from "./TaskRow";
 
-const TaskTable = ({ data, formatDate, filteredLength, currentLength }) => {
+const TaskTable = ({ data, filteredLength, currentLength }) => {
   // Define columns here
   const tableColumns = [
     { key: "task", label: "Task" },
@@ -29,7 +29,6 @@ const TaskTable = ({ data, formatDate, filteredLength, currentLength }) => {
               <TaskRow
                 key={item.id}
                 item={item}
-                formatDate={formatDate}
                 columns={tableColumns} // pass columns if TaskRow needs them
               />
             ))}

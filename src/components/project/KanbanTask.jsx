@@ -1,6 +1,7 @@
 import React from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { Calendar, FileText, GripVertical } from "lucide-react";
+import util from "../../utils/util";
 
 const KanbanTask = ({ task }) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
@@ -27,15 +28,6 @@ const KanbanTask = ({ task }) => {
     }
   };
 
-  // Format date helper
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      month: 'short', 
-      day: 'numeric',
-      year: date.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined
-    });
-  };
 
   // Get drag handle styling based on status
   const getDragHandleColor = () => {
@@ -88,7 +80,7 @@ const KanbanTask = ({ task }) => {
         {/* Created Date */}
         <div className="flex items-center opacity-60">
           <Calendar size={12} className="mr-1" />
-          <span>Created {formatDate(task.created_at)}</span>
+          <span>Created {util.formatDateComplete(task.created_at)}</span>
         </div>
 
       </div>

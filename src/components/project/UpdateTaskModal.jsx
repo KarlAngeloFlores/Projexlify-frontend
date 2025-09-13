@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { X, ClipboardEdit, AlertCircle, CheckCircle } from "lucide-react";
+import Button from "../Button";
+
 
 const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
   const [formData, setFormData] = useState({
@@ -172,33 +174,26 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
               />
             </div>
 
-            {errors.submit && (
-              <div className="px-4 py-2 bg-red-900/20 border border-red-500/30 rounded-lg text-sm text-red-400 flex items-center">
-                <AlertCircle className="w-4 h-4 mr-2" />
-                {errors.submit}
-              </div>
-            )}
+            {errors.submit && <p className="mt-2 text-sm text-red-500">{errors.submit}</p>}
           </div>
 
           {/* Actions */}
           <div className="flex items-center justify-end gap-3 mt-8 pt-6 border-t border-gray-700">
-            <button
+            <Button
               type="button"
               onClick={handleClose}
               disabled={isSubmitting}
-              className="px-6 py-3 text-gray-300 border border-gray-600 rounded-lg hover:bg-gray-700 hover:text-white disabled:opacity-50"
             >
               Cancel
-            </button>
-            <button
-              type="button"
-              onClick={handleSubmit}
+            </Button>
+            <Button
+              buttonType="update"
+              type="submit"
               disabled={
                 isSubmitting ||
                 !formData.name.trim() ||
                 !formData.contents.trim()
               }
-              className="px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-600 text-white rounded-lg font-semibold hover:from-yellow-600 hover:to-orange-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-50 flex items-center"
             >
               {isSubmitting ? (
                 <>
@@ -211,7 +206,9 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
                   Update Task
                 </>
               )}
-            </button>
+            </Button>
+
+
           </div>
         </div>
       </div>

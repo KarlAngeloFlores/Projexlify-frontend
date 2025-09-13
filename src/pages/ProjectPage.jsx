@@ -17,10 +17,11 @@ import TaskTable from '../components/project/TaskTable'
 import CreateTaskModal from '../components/project/CreateTaskModal'
 import UpdateTaskModal from '../components/project/UpdateTaskModal'
 import DeleteTaskModal from '../components/project/DeleteTaskModal'
-import KanbanPage from './KanbanPage'
+import Kanban from '../components/project/Kanban'
 import projectsService from '../services/projects'
 import ProjectInfo from '../components/project/ProjectInfo'
 import authService from '../services/auth'
+import Logout from '../components/Logout'
 
 const ProjectPage = ({}) => {
 
@@ -163,16 +164,6 @@ const ProjectPage = ({}) => {
     return { ...config, colors: colorMap[config.color] }
   }
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    })
-  }
-
   const handleSort = (column) => {
     if (sortBy === column) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
@@ -209,13 +200,9 @@ const ProjectPage = ({}) => {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="bg-gradient-to-r from-blue-400 to-purple-400 w-10 h-10 rounded-full flex items-center justify-center">
-                {user?.username ? user.username[0] : 'U'}
-              </div>
-              <span>{ user ? user.username : 'User'}</span>
-              <ChevronDown />
-            </div>
+
+
+            <Logout user={user}/>
 
           </div>
         </div>
@@ -270,14 +257,13 @@ const ProjectPage = ({}) => {
                 sortOrder={sortOrder}
                 handleSort={handleSort}
                 getStatusConfig={getStatusConfig}
-                formatDate={formatDate}
                 handleOpenUpdate={handleOpenUpdate}
                 handleOpenDelete={handleOpenDelete}
               />
             )}
 
             { viewMode === "kanban" && (
-              <KanbanPage 
+              <Kanban 
               tasks={filteredAndSortedTasks} 
               setTasks={setTasks}
               projectId={projectId}

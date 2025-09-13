@@ -1,10 +1,8 @@
-import { 
-  FolderOpen, Clock, MoreHorizontal, Calendar, User, 
-  CheckCircle2, PlayCircle, Trash2, Pencil 
-} from "lucide-react";
-import React, { useState, useRef, useEffect } from "react";
+import { FolderOpen, MoreHorizontal, Calendar, User, Trash2, Pencil } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 import util from "../../utils/util";
 import { useNavigate } from "react-router-dom";
+import StatusProject from "../StatusProject";
 
 const ProjectCard = ({ project, handleOpenUpdate, handleOpenDelete }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,28 +29,6 @@ const ProjectCard = ({ project, handleOpenUpdate, handleOpenDelete }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const getStatusBadge = (status) => {
-    const statusConfig = {
-      planned: "bg-blue-500/20 text-blue-300 border-blue-500/30",
-      active: "bg-green-500/20 text-green-300 border-green-500/30",
-      completed: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
-    };
-    return statusConfig[status] || "bg-gray-500/20 text-gray-300 border-gray-500/30";
-  };
-
-  const getStatusIcon = (status) => {
-    switch (status) {
-      case "planned":
-        return <Clock className="w-4 h-4 text-blue-400" />;
-      case "active":
-        return <PlayCircle className="w-4 h-4 text-green-400" />;
-      case "completed":
-        return <CheckCircle2 className="w-4 h-4 text-emerald-400" />;
-      default:
-        return <Clock className="w-4 h-4 text-blue-400" />;
-    }
-  };
-
   return (
     <div
       key={project.id}
@@ -69,14 +45,7 @@ const ProjectCard = ({ project, handleOpenUpdate, handleOpenDelete }) => {
               <h3 className="font-semibold text-white text-lg group-hover:text-blue-300 transition-colors truncate max-w-[240px]">
                 {project.name}
               </h3>
-              <div
-                className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium border ${getStatusBadge(
-                  project.status
-                )} mt-1`}
-              >
-                {getStatusIcon(project.status)}
-                <span className="ml-1 capitalize">{project.status}</span>
-              </div>
+              <StatusProject status={project.status}/>
             </div>
           </div>
 
@@ -123,7 +92,7 @@ const ProjectCard = ({ project, handleOpenUpdate, handleOpenDelete }) => {
         <div className="flex items-center justify-between text-sm text-gray-400">
           <div className="flex items-center">
             <Calendar className="w-4 h-4 mr-1" />
-            <span>Created {util.formatDateMDY(project.created_at)}</span>
+            <span>Created {util.formatDateComplete(project.created_at)}</span>
           </div>
           <div className="flex items-center">
             <User className="w-4 h-4 mr-1" />
@@ -136,7 +105,7 @@ const ProjectCard = ({ project, handleOpenUpdate, handleOpenDelete }) => {
       <div className="px-6 py-4 bg-gray-900/30 border-t border-gray-700 transition-all">
         <div className="flex items-center justify-between">
           <div className="text-xs text-gray-500">
-            Updated {util.formatDateMDY(project.updated_at)}
+            Updated {util.formatDateComplete(project.updated_at)}
           </div>
 
           <div className="flex items-center gap-2">

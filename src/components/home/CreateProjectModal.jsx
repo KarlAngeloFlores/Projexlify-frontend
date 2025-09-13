@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { X, FolderPlus, AlertCircle, CheckCircle } from 'lucide-react'
+import Button from '../Button'
+
 
 const CreateProjectModal = ({ isOpen, onClose, onCreateProject }) => {
   const [formData, setFormData] = useState({
@@ -134,19 +136,9 @@ const CreateProjectModal = ({ isOpen, onClose, onCreateProject }) => {
                 onKeyDown={handleKeyDown}
                 placeholder="Enter project name"
                 maxLength={100}
-                className={`w-full px-4 py-3 bg-gray-900/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all ${
-                  errors.name 
-                    ? 'border-red-500 focus:ring-red-500' 
-                    : 'border-gray-600 focus:ring-blue-500 focus:border-transparent'
-                }`}
+                className={`w-full px-4 py-3 bg-gray-900/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all border-gray-600 focus:ring-blue-500 focus:border-transparent`}
                 disabled={isSubmitting}
               />
-              {errors.name && (
-                <div className="mt-2 flex items-center text-sm text-red-400">
-                  <AlertCircle className="w-4 h-4 mr-1 flex-shrink-0" />
-                  {errors.name}
-                </div>
-              )}
               <div className="mt-1 text-xs text-gray-500 text-right">
                 {formData.name.length}/100
               </div>
@@ -196,32 +188,17 @@ const CreateProjectModal = ({ isOpen, onClose, onCreateProject }) => {
 
           {/* Actions */}
           <div className="flex items-center justify-end gap-3 mt-8 pt-6 border-t border-gray-700">
-            <button
+            <Button
               type="button"
               onClick={handleClose}
               disabled={isSubmitting}
-              className="px-6 py-3 text-gray-300 border border-gray-600 rounded-lg font-medium hover:bg-gray-700 hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Cancel
-            </button>
-            <button
-              type="button"
-              onClick={handleSubmit}
-              disabled={isSubmitting || !formData.name.trim() || !formData.description.trim()}
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center"
-            >
-              {isSubmitting ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                  Creating...
-                </>
-              ) : (
-                <>
-                  <CheckCircle className="w-4 h-4 mr-2" />
-                  Create Project
-                </>
-              )}
-            </button>
+            </Button>
+<Button type="submit" buttonType="normal" loading={isSubmitting} loadingText="Creating...">
+  <CheckCircle className="w-4 h-4 mr-2" />
+  Create Project
+</Button>
           </div>
         </div>
       </div>

@@ -1,7 +1,8 @@
-import { Calendar, Clock, Edit, Trash2, MoreHorizontal } from "lucide-react";
+import { Calendar, Clock, Edit, Trash2 } from "lucide-react";
+import util from "../../utils/util";
+import Status from "../Status";
 
-const TaskRow = ({ task, index, getStatusConfig, formatDate, handleOpenUpdate, handleOpenDelete }) => {
-  const config = getStatusConfig(task.status);
+const TaskRow = ({ task, index, handleOpenUpdate, handleOpenDelete }) => {
 
   return (
     <tr
@@ -17,12 +18,7 @@ const TaskRow = ({ task, index, getStatusConfig, formatDate, handleOpenUpdate, h
       </td>
 
       <td className="py-4 px-6">
-        <div
-          className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border text-nowrap ${config.colors.bg} ${config.colors.border} ${config.colors.text}`}
-        >
-          <config.icon className="w-3 h-3 mr-1" />
-          {config.label}
-        </div>
+        {<Status status={task.status}/>}
       </td>
 
       <td className="py-4 px-6 max-w-1/2">
@@ -37,14 +33,14 @@ const TaskRow = ({ task, index, getStatusConfig, formatDate, handleOpenUpdate, h
       <td className="py-4 px-6 text-gray-400 text-sm">
         <div className="flex items-center">
           <Calendar className="w-3 h-3 mr-1" />
-          {formatDate(task.created_at)}
+          {util.formatDateComplete(task.created_at)}
         </div>
       </td>
 
       <td className="py-4 px-6 text-gray-400 text-sm">
         <div className="flex items-center">
           <Clock className="w-3 h-3 mr-1" />
-          {formatDate(task.updated_at)}
+          {util.formatDateComplete(task.updated_at)}
         </div>
       </td>
 

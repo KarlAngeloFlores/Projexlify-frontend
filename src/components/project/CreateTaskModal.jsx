@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { X, ListTodo, AlertCircle, CheckCircle } from "lucide-react";
+import Button from "../Button";
 
 const CreateTaskModal = ({ isOpen, onClose, onCreateTask }) => {
   const [formData, setFormData] = useState({
@@ -33,11 +34,6 @@ const CreateTaskModal = ({ isOpen, onClose, onCreateTask }) => {
       newErrors.name = "Task name must be at least 3 characters";
     }
 
-
-    if (!formData.status.trim()) {
-      newErrors.status = "Status is required";
-    }
-
     if (!formData.contents.trim()) {
       newErrors.contents = "Task contents are required";
     }
@@ -67,7 +63,9 @@ const CreateTaskModal = ({ isOpen, onClose, onCreateTask }) => {
       onClose();
     } catch (error) {
       console.error("Error creating task:", error);
-      setErrors({ submit: error.message || 'Something went wrong. Please try again later' });
+      setErrors({
+        submit: error.message || "Something went wrong. Please try again later",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -153,22 +151,12 @@ const CreateTaskModal = ({ isOpen, onClose, onCreateTask }) => {
                 value={formData.status}
                 onChange={handleInfoChange}
                 disabled={isSubmitting}
-                className={`w-full px-4 py-3 bg-gray-900/50 border rounded-lg text-white focus:outline-none focus:ring-2 transition-all ${
-                  errors.status
-                    ? "border-red-500 focus:ring-red-500"
-                    : "border-gray-600 focus:ring-blue-500 focus:border-transparent"
-                }`}
+                className={`w-full px-4 py-3 bg-gray-900/50 border rounded-lg text-white focus:outline-none focus:ring-2 transition-all border-gray-600 focus:ring-blue-500 focus:border-transparent`}
               >
                 <option value="todo">To Do</option>
                 <option value="in_progress">In Progress</option>
                 <option value="done">Done</option>
               </select>
-              {errors.status && (
-                <div className="mt-2 flex items-center text-sm text-red-400">
-                  <AlertCircle className="w-4 h-4 mr-1" />
-                  {errors.status}
-                </div>
-              )}
             </div>
 
             {/* Contents */}
@@ -200,34 +188,28 @@ const CreateTaskModal = ({ isOpen, onClose, onCreateTask }) => {
 
             {/* Submit Error */}
             {errors.submit && (
-              <div className="p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
-                <div className="flex items-center text-sm text-red-400">
-                  <AlertCircle className="w-4 h-4 mr-2" />
-                  {errors.submit}
-                </div>
-              </div>
+              <p className="mt-2 text-sm text-red-500">{errors.submit}</p>
             )}
           </div>
 
           {/* Actions */}
           <div className="flex items-center justify-end gap-3 mt-8 pt-6 border-t border-gray-700">
-            <button
+            <Button
               type="button"
               onClick={handleClose}
               disabled={isSubmitting}
-              className="px-6 py-3 text-gray-300 border border-gray-600 rounded-lg font-medium hover:bg-gray-700 hover:text-white transition-colors disabled:opacity-50"
             >
               Cancel
-            </button>
-            <button
-              type="button"
+            </Button>
+            <Button
+              type="submit"
+              buttonType="normal"
               onClick={handleSubmit}
               disabled={
                 isSubmitting ||
                 !formData.name.trim() ||
                 !formData.contents.trim()
               }
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all transform hover:scale-[1.02] disabled:opacity-50 flex items-center"
             >
               {isSubmitting ? (
                 <>
@@ -240,7 +222,7 @@ const CreateTaskModal = ({ isOpen, onClose, onCreateTask }) => {
                   Create Task
                 </>
               )}
-            </button>
+            </Button>
           </div>
         </div>
       </div>

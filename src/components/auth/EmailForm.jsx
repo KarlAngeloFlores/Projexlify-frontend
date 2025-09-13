@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { Loader2, CircleX } from 'lucide-react'
 const EmailForm = ({handleEmail}) => {
 
-  
-
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);

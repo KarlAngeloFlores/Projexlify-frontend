@@ -3,6 +3,7 @@ import { Search, Filter } from "lucide-react";
 const Filtering = ({ searchTerm, setSearchTerm, statusFilter, setStatusFilter }) => {
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
+      
       {/* Search */}
       <div className="relative flex-1">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
