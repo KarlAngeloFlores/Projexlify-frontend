@@ -24,7 +24,7 @@ This repository contains the **frontend** of the Projexlify - Project Management
 > Default backend URL: `http://localhost:5000`
 
 ### 1.Clone the repository
-> git clone <link>
+> git clone **https://github.com/KarlAngeloFlores/Projexlify-frontend.git**
 
 ### 2.Install dependencies
 > npm install
@@ -41,7 +41,7 @@ This repository contains the **frontend** of the Projexlify - Project Management
 > VITE_API_URL=http://localhost:5000
 
 ### 4. Run Development Server
-#### Type this on terminal on frontend repository
+#### Type this on terminal on frontend directory    
 > npm run dev
 
 
