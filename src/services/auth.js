@@ -134,6 +134,18 @@ const authService = {
             const msg = error.response?.data?.message || error.message;
             throw new Error(msg); 
         }
+    },
+
+    changePassword: async (oldPassword, newPassword) => {
+        try {
+            
+            const { data } = await api.patch('/auth/change_password', { oldPassword, newPassword });
+            return data;
+
+        } catch (error) {
+            const msg = error.response?.data?.message || error.message;
+            throw new Error(msg); 
+        }
     }
 
 

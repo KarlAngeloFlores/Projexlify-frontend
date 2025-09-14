@@ -52,9 +52,8 @@ const tasksService = {
         try {
             
             const { data } = await api.delete('/project/delete_task', {
-                params: { taskId },
                 data: {
-                    projectId, remark
+                    projectId, remark, taskId
                 }
             });
 
@@ -68,7 +67,6 @@ const tasksService = {
 
     syncPositionStatus: async (tasks, taskId, newStatus, projectId) => {
         try {
-            console.log(projectId);
             const { data } = await api.patch('/project/update_reorder', { tasks, taskId, newStatus, projectId });
             return data;
             

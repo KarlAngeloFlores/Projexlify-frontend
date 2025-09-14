@@ -13,6 +13,7 @@ import Home from './pages/Home';
 import TaskTable from './components/TaskTable';
 import HistoryPage from './pages/HistoryPage';
 import NotFoundPage from './pages/NotFoundPage';
+import ChangePage from './pages/ChangePage';
 function App() {
   return (
     <>
@@ -47,7 +48,14 @@ function App() {
 
           {/**Not Found Page */}
           <Route path='*' element={<NotFoundPage />}/>
+
+          <Route path='change_password' element={<ProtectedRoute>
+            <ChangePage />
+          </ProtectedRoute>}/>
+
         </Routes> 
+          
+
       </Router>
     </>
   )

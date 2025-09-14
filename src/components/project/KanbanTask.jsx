@@ -1,4 +1,3 @@
-import React from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { Calendar, FileText, GripVertical } from "lucide-react";
 import util from "../../utils/util";
@@ -28,8 +27,6 @@ const KanbanTask = ({ task }) => {
     }
   };
 
-
-  // Get drag handle styling based on status
   const getDragHandleColor = () => {
     switch (task.status) {
       case 'todo':
@@ -47,7 +44,7 @@ const KanbanTask = ({ task }) => {
       style={style}
       {...listeners}
       {...attributes}
-      className={`${getTaskStyling()} ${isDragging ? '' : ''}`}
+      className={`${getTaskStyling()} ${isDragging ? 'rotate-2' : ''}`}
     > 
       
       {/* Drag Handle */}
@@ -57,7 +54,7 @@ const KanbanTask = ({ task }) => {
 
       {/* Task Header */}
       <div className="flex items-start justify-between mb-3">
-        <h3 className="font-semibold text-base leading-tight pr-6">
+        <h3 className="font-semibold text-base leading-tight pr-6 truncate">
           {task.name}
         </h3>
       </div>

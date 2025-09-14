@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import authService from '../../services/auth'
 import { CheckCircle2, Loader2, CircleX } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
+import '../../styles/animations.css';
 
 const LoginForm = ({setCurrentAuth}) => {
 
@@ -56,11 +56,10 @@ const LoginForm = ({setCurrentAuth}) => {
       setSuccessMessage('');
     }
 
-
   return (
     <section className='h-screen'>
         <div className='max-w-7xl mx-auto w-full h-full flex items-center justify-center px-4'>
-          <div className="w-full max-w-md">
+          <div className="w-full max-w-md modal-animation">
             <div className="bg-gray-800/50 backdrop-blur-md rounded-2xl border border-gray-700 p-8 shadow-2xl">
               {/* Logo */}
 

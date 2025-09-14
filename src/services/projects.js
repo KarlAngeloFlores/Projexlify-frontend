@@ -58,9 +58,8 @@ const projectsService = {
         try {
             
             const { data } = await api.delete('/project/delete_project', {
-                params: { projectId },
                 data: {
-                    remark
+                    projectId, remark
                 }
             });
 

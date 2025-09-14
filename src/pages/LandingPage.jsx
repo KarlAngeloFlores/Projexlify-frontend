@@ -11,12 +11,12 @@ const LandingPage = () => {
     {
       icon: <Check className="w-6 h-6" />,
       title: "Task Management",
-      description: "Experience blazing fast performance with real-time updates and instant sync across all devices."
+      description: "Experience blazing fast performance across all devices."
     },
     {
       icon: <Clock className="w-6 h-6" />,
-      title: "Time Tracking",
-      description: "Built-in time tracking and scheduling tools to keep your projects on time and on budget."
+      title: "History Tracking",
+      description: "Built-in History tracking and scheduling tools to keep your projects on time and on budget."
     },
     {
       icon: <Target className="w-6 h-6" />,

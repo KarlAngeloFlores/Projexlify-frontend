@@ -1,6 +1,7 @@
 import { X, FolderUp, CheckCircle, AlertCircle, CircleX } from "lucide-react";
 import { useEffect, useState } from "react";
 import Button from "../Button";
+import '../../styles/animations.css';
 
 const UpdateProjectModal = ({ isOpen, onClose, onUpdateProject, project }) => {
   const [formData, setFormData] = useState({
@@ -49,13 +50,9 @@ const UpdateProjectModal = ({ isOpen, onClose, onUpdateProject, project }) => {
     }
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsSubmitting(true)
     try {
       await onUpdateProject(
         project.id,
@@ -68,6 +65,8 @@ const UpdateProjectModal = ({ isOpen, onClose, onUpdateProject, project }) => {
     } catch (error) {
       console.error("Error updating project:", error);
       setErrors({ submit: error.message });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -89,7 +88,7 @@ const UpdateProjectModal = ({ isOpen, onClose, onUpdateProject, project }) => {
       />
 
       {/**Modal */}
-      <div className="relative w-full max-w-md bg-gray-800/95 backdrop-blur-md rounded-2xl border border-gray-700 shadow-2xl transform transition-all">
+      <div className="modal-animation relative w-full max-w-md bg-gray-800/95 backdrop-blur-md rounded-2xl border border-gray-700 shadow-2xl transform transition-all">
         {/**Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-700">
           <div className="flex items-center">

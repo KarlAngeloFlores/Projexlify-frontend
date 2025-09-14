@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { X, FolderPlus, AlertCircle, CheckCircle } from 'lucide-react'
 import Button from '../Button'
+import '../../styles/animations.css'
 
 
 const CreateProjectModal = ({ isOpen, onClose, onCreateProject }) => {
@@ -99,7 +100,7 @@ const CreateProjectModal = ({ isOpen, onClose, onCreateProject }) => {
       />
       
       {/* Modal */}
-      <div className="relative w-full max-w-md bg-gray-800/95 backdrop-blur-md rounded-2xl border border-gray-700 shadow-2xl transform transition-all">
+      <div className="modal-animation relative w-full max-w-md bg-gray-800/95 backdrop-blur-md rounded-2xl border border-gray-700 shadow-2xl transform transition-all">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-700">
           <div className="flex items-center">
@@ -195,7 +196,7 @@ const CreateProjectModal = ({ isOpen, onClose, onCreateProject }) => {
             >
               Cancel
             </Button>
-<Button type="submit" buttonType="normal" loading={isSubmitting} loadingText="Creating...">
+<Button onClick={handleSubmit} type="submit" buttonType="normal" loading={isSubmitting} loadingText="Creating...">
   <CheckCircle className="w-4 h-4 mr-2" />
   Create Project
 </Button>

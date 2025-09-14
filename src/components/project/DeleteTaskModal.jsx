@@ -1,7 +1,7 @@
 import { X, FolderX } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Button from '../Button';
-
+import '../../styles/animations.css';
 
 const DeleteTaskModal = ({ isOpen, onClose, onDeleteTask, task }) => {
   const [remark, setRemark] = useState('');
@@ -46,7 +46,7 @@ const DeleteTaskModal = ({ isOpen, onClose, onDeleteTask, task }) => {
       />
 
       {/* Modal */}
-      <div className="relative bg-gray-900 rounded-2xl w-full max-w-md shadow-lg overflow-hidden">
+      <div className="modal-animation relative bg-gray-900 rounded-2xl w-full max-w-md shadow-lg overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-700">
           <div className="flex items-center">

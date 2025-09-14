@@ -7,7 +7,6 @@ import {
   Play, 
   ArrowLeft,
   ListTodo,
-  ChevronDown
 } from 'lucide-react'
 import LoadingScreen from '../components/LoadingScreen'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -22,6 +21,7 @@ import projectsService from '../services/projects'
 import ProjectInfo from '../components/project/ProjectInfo'
 import authService from '../services/auth'
 import Logout from '../components/Logout'
+import UpdateProjectModal from '../components/home/UpdateProjectModal'
 
 const ProjectPage = ({}) => {
 
@@ -30,6 +30,7 @@ const ProjectPage = ({}) => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showProjectEditModal, setShowProjectEditModal] = useState(false);
   const [selectedTask, setSeletectedTask] = useState(null);
   const [user, setUser] = useState([]);
   
@@ -48,6 +49,43 @@ const ProjectPage = ({}) => {
     { id: 'in_progress', label: 'In Progress', icon: Play, color: 'yellow' },
     { id: 'done', label: 'Done', icon: CheckCircle2, color: 'green' },
   ];
+
+  const handleOpenUpdateProject = () => {
+    setShowProjectEditModal(true);
+  }
+
+  const handleUpdateProject = async (
+    projectId,
+    name,
+    description,
+    newStatus,
+    remark
+  ) => {
+    try {
+      const data = await projectsService.updateProject(
+        projectId,
+        name,
+        description,
+        newStatus,
+        remark
+      );
+
+      const newProject = data.project;
+      console.log(data.project);
+
+      setProject(newProject);
+
+      // setProjects((prev) =>
+      //   prev.map((project) =>
+      //     project.id === projectId ? { ...project, ...newProject } : project
+      //   )
+      // );
+    } catch (error) {
+      console.log(error);
+
+      throw error;
+    }
+  };
 
   const handleGetAllTasks = async () => {
     try {
@@ -211,7 +249,10 @@ const ProjectPage = ({}) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Project Info Section */}
-        <ProjectInfo project={project}/>
+        <ProjectInfo 
+        project={project}
+        openUpdateModal={handleOpenUpdateProject}
+        />
 
         {/* Filters and Search */}
         <Filtering 
@@ -294,6 +335,15 @@ const ProjectPage = ({}) => {
         onDeleteTask={handleDeleteTask}
         task={selectedTask}
         /> 
+        }
+
+        {
+          <UpdateProjectModal 
+          isOpen={showProjectEditModal}
+          onClose={() => setShowProjectEditModal(false)}
+          onUpdateProject={handleUpdateProject}
+          project={project}
+          />
         }
 
     </div>

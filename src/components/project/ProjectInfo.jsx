@@ -1,14 +1,26 @@
-import { ListTodo } from "lucide-react";
+import { ListTodo, Edit, Clock } from "lucide-react";
 import StatusProject from "../StatusProject";
 import util from "../../utils/util";
+import { useNavigate } from "react-router-dom";
 
-const ProjectInfo = ({ project }) => {
+const ProjectInfo = ({ project, openUpdateModal }) => {
+
+  const navigate = useNavigate();
+
   return (
     <div className="bg-gray-900/40 border border-gray-800 rounded-2xl p-6 mb-8 shadow-lg">
+
+      <div className="w-full flex justify-between items-center">
       <h2 className="text-2xl font-bold text-white flex items-center truncate">
         <ListTodo className="w-7 h-7 mr-2 text-blue-400" />
         {project?.name || "Untitled Project"}
       </h2>
+
+      <div>
+      <button onClick={openUpdateModal} className="p-2 text-gray-400 hover:text-gray-100 hover:bg-gray-700 rounded-lg transition-colors"><Edit className="w-4 h-4" /></button>
+      <button onClick={() => navigate(`/history/${project.id}`)} className="p-2 text-gray-400 hover:text-blue-400 hover:bg-gray-700 rounded-lg transition-colors"><Clock className="w-4 h-4"/></button>
+      </div>
+      </div>
 
       <p className="text-gray-400 mt-2">
         {project?.description || "No description available."}

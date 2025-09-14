@@ -7,58 +7,62 @@ import { PlusSquare, ClipboardCheck } from "lucide-react";
 const KanbanColumn = ({ id, title, tasks }) => {
   const { setNodeRef, isOver } = useDroppable({ id });
 
-  const getColumnStyle = () => {
-    const baseStyles = "flex flex-col rounded-2xl p-4 shadow-xl border transition-all duration-300 w-full backdrop-blur-sm";
-    
-    if (title ===  'To Do') {
+const getColumnStyle = () => {
+  const baseStyles =
+    "flex flex-col rounded-2xl p-4 shadow-xl border transition-all duration-300 w-full backdrop-blur-sm";
+
+  switch (title) {
+    case "To Do":
       return `${baseStyles} bg-gradient-to-br from-slate-800/90 to-slate-900/90 border-slate-600/50 hover:border-slate-500/70`;
-    } else if (title === 'In Progress') {
+    case "In Progress":
       return `${baseStyles} bg-gradient-to-br from-amber-900/20 to-orange-900/20 border-amber-600/30 hover:border-amber-500/50`;
-    } else if (title === 'Done') {
+    case "Done":
       return `${baseStyles} bg-gradient-to-br from-emerald-900/20 to-green-900/20 border-emerald-600/30 hover:border-emerald-500/50`;
-    }
-  };
+    default:
+      return baseStyles;
+  }
+};
 
-  const getHeaderColor = () => {
-    if (title ===  'To Do') {
-      return 'text-slate-200';
-    } else if (title === 'In Progress') {
-      return 'text-amber-200';
-    } else if (title === 'Done') {
-      return 'text-emerald-200';
-    }
-  };
 
-  const getDropZoneStyle = () => {
-    const baseStyle = "flex-1 space-y-3 rounded-xl p-3 transition-all duration-200 flex flex-col gap-2";
-    
-    if (isOver) {
-      if (title === 'To Do') {
-        return `${baseStyle} bg-slate-500/30 border-2 border-slate-400/50 border-dashed`;
-      } else if (title === 'In Progress') {
-        return `${baseStyle} bg-amber-500/30 border-2 border-amber-400/50 border-dashed`;
-      } else if (title === 'Done') {
-        return `${baseStyle} bg-emerald-500/30 border-2 border-emerald-400/50 border-dashed`;
-      }
-    }
-  };
+const getHeaderColor = () => {
+  switch (title) {
+    case "To Do":
+      return "text-slate-200";
+    case "In Progress":
+      return "text-amber-200";
+    case "Done":
+      return "text-emerald-200";
+    default:
+      return "";
+  }
+};
 
-  const getPlusButtonStyle = () => {
-    if (title === 'To Do') {
-      return 'text-slate-400 hover:text-slate-200 hover:bg-slate-700/50';
-    } else if (title === 'In Progress') {
-      return 'text-amber-400 hover:text-amber-200 hover:bg-amber-700/50';
-    } else if (title === 'Done') {
-      return 'text-emerald-400 hover:text-emerald-200 hover:bg-emerald-700/50';
-    }
-  };
+
+const getDropZoneStyle = () => {
+  const baseStyle =
+    "flex-1 space-y-3 rounded-xl p-3 transition-all duration-200 flex flex-col gap-2";
+
+  if (!isOver) return baseStyle;
+
+  switch (title) {
+    case "To Do":
+      return `${baseStyle} bg-slate-500/30 border-2 border-slate-400/50 border-dashed`;
+    case "In Progress":
+      return `${baseStyle} bg-amber-500/30 border-2 border-amber-400/50 border-dashed`;
+    case "Done":
+      return `${baseStyle} bg-emerald-500/30 border-2 border-emerald-400/50 border-dashed`;
+    default:
+      return baseStyle;
+  }
+};
+
 
   return (
     <div
       ref={setNodeRef}
       className={getColumnStyle()}
     >
-      {/* Enhanced Column Header */}
+
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2">
           <h2 className={`text-xl font-bold tracking-wide ${getHeaderColor()}`}>
@@ -68,12 +72,6 @@ const KanbanColumn = ({ id, title, tasks }) => {
             {tasks.length}
           </span>
         </div>
-        <button 
-          className={`${getPlusButtonStyle()} transition-all duration-200 p-2 rounded-lg hover:scale-105 active:scale-95`}
-          title="Add new task"
-        >
-          <PlusSquare size={20} />
-        </button>
       </div>
 
       {/* Enhanced Task Container */}

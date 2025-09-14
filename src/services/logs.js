@@ -16,6 +16,23 @@ const logService = {
             const msg = error.response?.data?.message || error.message;
             throw new Error(msg);
         }
+    },
+
+    getProjectHistory: async (projectId) => {
+        try {
+            
+            const { data } = await api.get('/log/get_projects_log', {
+                params: {
+                    projectId
+                }
+            });
+
+            return data;
+
+        } catch (error) {
+            const msg = error.response?.data?.message || error.message;
+            throw new Error(msg);
+        }
     }
 }
 

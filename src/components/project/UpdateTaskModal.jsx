@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { X, ClipboardEdit, AlertCircle, CheckCircle } from "lucide-react";
 import Button from "../Button";
-
+import '../../styles/animations.css';
 
 const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
   const [formData, setFormData] = useState({
@@ -87,7 +87,7 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md bg-gray-800/95 backdrop-blur-md rounded-2xl border border-gray-700 shadow-2xl">
+      <div className="modal-animation relative w-full max-w-md bg-gray-800/95 backdrop-blur-md rounded-2xl border border-gray-700 shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-700">
           <div className="flex items-center">
@@ -189,6 +189,7 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
             <Button
               buttonType="update"
               type="submit"
+              onClick={handleSubmit}
               disabled={
                 isSubmitting ||
                 !formData.name.trim() ||
