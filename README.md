@@ -1,12 +1,33 @@
-# React + Vite
+# Projexlify - Project Management App - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This repository contains the **frontend** of the Projexlify - Project Management App, developed with **React (Vite)**. The frontend provides a clean and responsive user interface for managing projects and tasks. It communicates with the backend via REST APIs and supports authentication/authorization.
 
-Currently, two official plugins are available:
+## Tech Stack
+- **React (Vite)** – Frontend framework  
+- **React Router** – Client-side routing  
+- **Axios/Fetch** – API communication  
+- **Tailwind CSS** – Styling  
+- **Lucide-react** – Icons  
+- **JWT (via backend)** – Authentication
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- 🔑 **Authentication**: Login & register with secure JWT-based sessions (via http cookies).
+- 📂 **Project Management**: Create, view, edit, delete, and manage tasks within project.
+- ✅ **Task Management**: Add, update, delete, and track tasks inside projects.
+- 👤 **User Dashboard**: Personalized workspace with project history.
+- 🎨 **Modern UI**: Built with Tailwind CSS + reusable components.
+- 🔍 **Filtering & Pagination**: Easy task/project browsing.
 
-## Expanding the ESLint configuration
+## Installation % Setup
+### 1.Clone the repository
+git clone <link>
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 2.Install dependencies
+#### npm install
+- **react-router-dom**: Routing
+- **axios**: API requests
+- **lucide-react**: Icons
+- **tailwindcss**: Styling
+
+
