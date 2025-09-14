@@ -21,6 +21,9 @@ This repository contains the **frontend** of the Projexlify - Project Management
 
 ## Installation & Setup
 > ⚠️ **Important:** For the frontend features to work properly, you must **run the backend server first**.  
+
+> Backend repository: **https://github.com/KarlAngeloFlores/Projexlify-backend.git**
+
 > Default backend URL: `http://localhost:5000`
 
 ### 1.Clone the repository
