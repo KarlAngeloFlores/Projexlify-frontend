@@ -16,7 +16,7 @@ This repository contains the **frontend** of the Projexlify - Project Management
 - **Authentication**: Login & register with secure JWT-based sessions (via http cookies).
 - **Project Management**: Create, view, edit, delete, and manage tasks within project.
 - **Task Management**: Add, update, delete, and track tasks inside projects.
-- **User Dashboard**: Personalized workspace with project history.
+- **Drag and Drop**: Change status interactively.
 - **Modern UI**: Built with Tailwind CSS + reusable components.
 - **Filtering & Pagination**: Easy task/project browsing.
 
@@ -33,14 +33,6 @@ This repository contains the **frontend** of the Projexlify - Project Management
 ### 2.Install dependencies
 ``` 
 npm install
-
-react-router-dom - Routing
-axios - API requests
-lucide-react - Icons
-tailwindcss - Styling
-dnd-kit/core - Drag-and-drop support
-dnd-kit/sortable - Sortable list support
-dnd-kit/utilities - Utilities for drag-and-drop
 ```
 
 ### 3. Configure a .file in the project root
