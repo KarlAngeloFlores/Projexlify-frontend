@@ -1,6 +1,7 @@
-# Projexlify - Project Management App - Frontend
+# Projexlify - Project Management App
+> Frontend
 
-## Overview
+#### Overview
 This repository contains the **frontend** of the Projexlify - Project Management App, developed with **React (Vite)**. The frontend provides a clean and responsive user interface for managing projects and tasks. It communicates with the backend via REST APIs and supports authentication/authorization.
 
 ## Tech Stack
@@ -30,21 +31,26 @@ This repository contains the **frontend** of the Projexlify - Project Management
 > git clone **https://github.com/KarlAngeloFlores/Projexlify-frontend.git**
 
 ### 2.Install dependencies
-> npm install
-- **react-router-dom**: Routing
-- **axios**: API requests
-- **lucide-react**: Icons
-- **tailwindcss**: Styling
-- **dnd-kit/core** - Drag-and-drop support
-- **dnd-kit/sortable** - Sortable list support
-- **dnd-kit/utilities** - Utilities for drag-and-drop
+``` 
+npm install
+
+react-router-dom - Routing
+axios - API requests
+lucide-react - Icons
+tailwindcss - Styling
+dnd-kit/core - Drag-and-drop support
+dnd-kit/sortable - Sortable list support
+dnd-kit/utilities - Utilities for drag-and-drop
+```
 
 ### 3. Configure a .file in the project root
 #### Create a **.env** file in the project root:
-> VITE_API_URL=http://localhost:5000
-
+```
+VITE_API_URL=http://localhost:5000
+```
 ### 4. Run Development Server
 #### Type this on terminal on frontend directory    
-> npm run dev
-
+```
+npm run dev
+```
 
