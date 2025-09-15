@@ -6,5 +6,5 @@
 }
 
 .modal-animation {
-  animation: bounceIn 0.5s ease-in; /* <--- link the keyframes here */
+  animation: bounceIn 0.5s ease-in; 
 }
