@@ -46,3 +46,13 @@ VITE_API_URL=http://localhost:5000
 npm run dev
 ```
 
+## Incomplete functionalities (other scalable features that can be added with the project)
+### Real-time collaboration within a project
+Requirements
+- Socket.IO – Real-time updates for tasks/projects
+- Broadcasting events – Changes made by one user reflected instantly for others
+
+### Advanced Project Sharing & Roles
+Requirements
+- Modal for giving access
+- Dropdown menu for giving access
