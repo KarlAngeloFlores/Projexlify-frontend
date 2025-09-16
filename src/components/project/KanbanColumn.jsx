@@ -1,9 +1,8 @@
-import React from "react";
 import { useDroppable } from "@dnd-kit/core";
+import { ClipboardCheck } from "lucide-react";
 import KanbanTask from "./KanbanTask";
-import { PlusSquare, ClipboardCheck } from "lucide-react";
 
-// ✅ Enhanced Droppable Kanban Column with improved colors
+
 const KanbanColumn = ({ id, title, tasks }) => {
   const { setNodeRef, isOver } = useDroppable({ id });
 
@@ -36,7 +35,6 @@ const getHeaderColor = () => {
       return "";
   }
 };
-
 
 const getDropZoneStyle = () => {
   const baseStyle =
@@ -84,9 +82,7 @@ const getDropZoneStyle = () => {
             <p className="text-sm text-gray-400 font-medium">
               No tasks yet
             </p>
-            <p className="text-xs text-gray-500 mt-1">
-              Click the + button to add a task
-            </p>
+
           </div>
         )}
       </div>

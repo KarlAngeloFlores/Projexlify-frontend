@@ -19,16 +19,19 @@ const Kanban = ({ tasks, setTasks, projectId }) => {
 
 const handleDragEnd = async (event) => {
   const { active, over } = event;
-  if (!over) return;
+  if (!over) return; //ends
 
   const taskId = parseInt(active.id);
   const newStatus = over.id;
 
-  // 1️⃣ Prepare updated tasks outside setTasks
+  console.log(over)
+
+  //Prepare updated tasks outside setTasks
   let updatedTasks;
   let withPositions;
   let changedTask;
 
+  //update task array if new status changed
   setTasks((prevTasks) => {
     updatedTasks = prevTasks.map((task) =>
       task.id === taskId ? { ...task, status: newStatus } : task
@@ -36,6 +39,7 @@ const handleDragEnd = async (event) => {
 
     withPositions = updatedTasks.map((task, _, arr) => {
       const sameColumn = arr.filter((t) => t.status === task.status);
+      // console.log(sameColumn);
       const newIndex = sameColumn.findIndex((t) => t.id === task.id);
       return { ...task, position: newIndex };
     });
@@ -45,11 +49,11 @@ const handleDragEnd = async (event) => {
     return withPositions;
   });
 
-  //API call OUTSIDE setTasks → avoids double call in StrictMode
+  //API call OUTSIDE setTasks -> avoids double call of api
   if (changedTask) {
     // console.log("PROJECTID:", projectId);
     // console.log("Changed task:", changedTask);
-    console.log(withPositions);
+    // console.log(withPositions);
 
     await syncPositionStatus(withPositions, changedTask.id, changedTask.status);
   }
