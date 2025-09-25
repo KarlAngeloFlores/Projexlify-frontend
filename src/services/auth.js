@@ -64,18 +64,6 @@ const authService = {
 
     },
 
-    getMember: async () => {
-        try {
-            
-            const { data } = await api.get('/auth/get_member');
-            return data;
-
-        } catch (error) {
-            const msg = error.response?.data?.message || error.message;
-            throw new Error(msg);
-        }
-    },
-
     forgotPassword: async (email) => {
         try {
 
@@ -147,8 +135,6 @@ const authService = {
             throw new Error(msg); 
         }
     }
-
-
 }
 
 export default authService;

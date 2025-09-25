@@ -5,10 +5,10 @@ import TaskTable from "../components/history/TaskTable";
 import ProjectHistoryTable from "../components/history/ProjectTable"; // 👈 import this
 import logService from "../services/logs";
 import Filtering from "../components/history/Filtering";
-import authService from "../services/auth";
 import LoadingScreen from "../components/LoadingScreen";
 import ErrorPage from "../pages/ErrorPage";
 import Logout from "../components/Logout";
+import userService from "../services/user";
 
 const HistoryPage = () => {
   const [loading, setIsLoading] = useState(false);
@@ -28,7 +28,7 @@ const HistoryPage = () => {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const member = await authService.getMember();
+      const member = await userService.getUser();
       const taskLogs = await logService.getTaskHistory(projectId);
       const historyLogs = await logService.getProjectHistory(projectId);
 
@@ -86,24 +86,24 @@ const HistoryPage = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-white">
       {/* Header */}
-      <div className="border-b border-gray-800 bg-gray-900/50 backdrop-blur-md sticky top-0 z-10">
+      <div className="border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/50 backdrop-blur-md sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <button
                 onClick={() => navigate(-1)}
-                className="mr-4 p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
+                className="mr-4 p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
               </button>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent flex items-center">
-                  <History className="w-8 h-8 mr-3 text-blue-400" />
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent flex items-center">
+                  <History className="w-8 h-8 mr-3 text-blue-600 dark:text-blue-400" />
                   History
                 </h1>
-                <p className="text-gray-400 mt-1">
+                <p className="text-gray-600 dark:text-gray-400 mt-1">
                   Track all project and task status changes
                 </p>
               </div>
@@ -118,15 +118,15 @@ const HistoryPage = () => {
 
        {/* Project History Table */}
         <div className="mb-4">
-          <h2 className="text-xl font-semibold text-blue-400 mb-4">
+          <h2 className="text-xl font-semibold text-blue-600 dark:text-blue-400 mb-4">
             Project History
           </h2>
           <ProjectHistoryTable data={paginatedProjectHistory} projectLength={projectHistory.length} />
           
           {/* Project Pagination */}
           {totalProjectPages > 1 && (
-            <div className="flex items-center justify-between mt-6 bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3">
-              <div className="flex items-center text-sm text-gray-400">
+            <div className="flex items-center justify-between mt-6 bg-white/80 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 shadow-sm">
+              <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                 <span>
                   Page {projectPage} of {totalProjectPages}
                 </span>
@@ -135,14 +135,14 @@ const HistoryPage = () => {
                 <button
                   onClick={() => setProjectPage(Math.max(1, projectPage - 1))}
                   disabled={projectPage === 1}
-                  className="px-3 py-1 text-sm border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-700 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Previous
                 </button>
                 <button
                   onClick={() => setProjectPage(Math.min(totalProjectPages, projectPage + 1))}
                   disabled={projectPage === totalProjectPages}
-                  className="px-3 py-1 text-sm border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-700 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Next
                 </button>
@@ -154,7 +154,7 @@ const HistoryPage = () => {
 
         {/* Task History Table */}
         <div>
-          <h2 className="text-xl font-semibold text-blue-400 mb-4">
+          <h2 className="text-xl font-semibold text-blue-600 dark:text-blue-400 mb-4">
             Task History
           </h2>
 
@@ -174,8 +174,8 @@ const HistoryPage = () => {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-between mt-6 bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3">
-              <div className="flex items-center text-sm text-gray-400">
+            <div className="flex items-center justify-between mt-6 bg-white/80 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 shadow-sm">
+              <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                 <span>
                   Page {currentPage} of {totalPages}
                 </span>
@@ -184,7 +184,7 @@ const HistoryPage = () => {
                 <button
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
-                  className="px-3 py-1 text-sm border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-700 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Previous
                 </button>
@@ -193,7 +193,7 @@ const HistoryPage = () => {
                     setCurrentPage(Math.min(totalPages, currentPage + 1))
                   }
                   disabled={currentPage === totalPages}
-                  className="px-3 py-1 text-sm border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-700 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Next
                 </button>

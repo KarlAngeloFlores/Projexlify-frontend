@@ -20,7 +20,7 @@ const Button = ({
 
   return (
     <button
-      type={type}   // ✅ allows "submit" for forms
+      type={type}  
       onClick={onClick}
       disabled={disabled}
       className={buttonStyle()}

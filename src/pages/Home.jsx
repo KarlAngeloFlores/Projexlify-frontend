@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Plus, FolderOpen, ChevronDown } from "lucide-react";
-import authService from "../services/auth";
 import projectsService from "../services/projects";
 import ProjectCard from "../components/home/ProjectCard";
 import LoadingScreen from "../components/LoadingScreen";
@@ -11,6 +10,7 @@ import ProjectTable from "../components/home/ProjectTable";
 import Filtering from "../components/home/Filtering";
 import ErrorPage from "./ErrorPage";
 import Logout from "../components/Logout";
+import userService from "../services/user";
 
 const Home = () => {
 
@@ -31,8 +31,8 @@ const Home = () => {
   const handleFetchHome = async () => {
     try {
       setLoading(true);
-      const memberData = await authService.getMember();
-      const projectsData = await projectsService.getAllProjects();
+      const memberData = await userService.getUser();
+      const projectsData = await projectsService.getAllProjectsByUser();
       console.log(memberData);
 
       setMember(memberData.data);
@@ -110,7 +110,7 @@ const Home = () => {
     }
   };
 
-    // Filter projects based on search and status
+    //filter projects based on search and status
     const filteredProjects = projects.filter((project) => {
     const name = project.name || "";
     const description = project.description || "";
@@ -137,16 +137,16 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-white">
       {/* Header */}
-      <div className="border-b border-gray-800 bg-gray-900/50 backdrop-blur-md sticky top-0 z-10">
+      <div className="border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/50 backdrop-blur-md sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
                 My Projects
               </h1>
-              <p className="text-gray-400 mt-1">
+              <p className="text-gray-600 dark:text-gray-400 mt-1">
                 Welcome back! You have{" "}
                 {filteredProjects.length} projects.
               </p>
@@ -174,14 +174,14 @@ const Home = () => {
         {/* Projects Grid / Table */}
         {/* Projects Grid / Views */}
         {filteredProjects.length === 0 ? (
-          <div className="text-center py-16 bg-gray-900/40 rounded-lg border border-gray-700">
-            <FolderOpen className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-400 mb-2">
+          <div className="text-center py-16 bg-white/60 dark:bg-gray-900/40 rounded-lg border border-gray-200 dark:border-gray-700">
+            <FolderOpen className="w-16 h-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">
               {searchTerm || statusFilter !== "all"
                 ? "No matching projects"
                 : "No projects yet"}
             </h3>
-            <p className="text-gray-500 mb-6">
+            <p className="text-gray-500 dark:text-gray-500 mb-6">
               {searchTerm || statusFilter !== "all"
                 ? "Try adjusting your search or filters"
                 : "Create your first project to get started"}
@@ -189,7 +189,7 @@ const Home = () => {
             {!searchTerm && statusFilter === "all" && (
               <button
                 onClick={() => setShowCreateModal(true)}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all transform hover:scale-105 flex items-center mx-auto"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-600 dark:to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 dark:hover:from-blue-700 dark:hover:to-purple-700 transition-all transform hover:scale-105 flex items-center mx-auto shadow-lg"
               >
                 <Plus className="w-5 h-5 mr-2" />
                 Create Project

@@ -1,7 +1,7 @@
 import api from "./api";
 
 const projectsService = {
-    getAllProjects: async () => {
+    getAllProjectsByUser: async () => {
         try {
             
             const { data } = await api.get('/project/get_all_project');
@@ -63,6 +63,19 @@ const projectsService = {
                 }
             });
 
+            return data;
+
+        } catch (error) {
+            const msg = error.response?.data?.message || error.message;
+            throw new Error(msg);
+        }
+    },
+
+    getAllProjects: async () => {
+        try {
+            
+            const { data } = await api.get('/admin/projects');
+            
             return data;
 
         } catch (error) {

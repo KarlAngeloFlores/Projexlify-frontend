@@ -14,6 +14,10 @@ import TaskTable from './components/TaskTable';
 import HistoryPage from './pages/HistoryPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ChangePage from './pages/ChangePage';
+
+//admin
+import AdminHome from './pages/admin/Home';
+
 function App() {
   return (
     <>
@@ -25,24 +29,30 @@ function App() {
 
           <Route path='/forgot_password' element= {<ForgotPage/>}/>
 
-          <Route path='/home' element={<ProtectedRoute>
+          <Route path='/home' element={
+            <ProtectedRoute allowedRoles={["user"]}>
             <Home/>
           </ProtectedRoute>}/>
 
           <Route path='/project/:projectId' element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["user", "admin"]}>
               <ProjectRoute>
                 <ProjectPage />
               </ProjectRoute>
           </ProtectedRoute>}/>
 
           <Route path='/history/:projectId' element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["user", "admin"]}>
               <ProjectRoute>
                 <HistoryPage />
               </ProjectRoute>
             </ProtectedRoute>
           }/>
+          
+          <Route path='/admin/home' element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <AdminHome />
+          </ProtectedRoute>}/>
 
           <Route path='/tasks' element={<TaskTable />}/>
 

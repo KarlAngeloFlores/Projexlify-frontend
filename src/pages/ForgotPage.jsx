@@ -44,7 +44,7 @@ const ForgotPage = () => {
   
 
   return (
-    <div className='bg-gray-950 text-white'>
+    <div className='dark:bg-gray-950 bg-gray-100 text-white'>
         <NavHeader />
 
         {currentAuth === 'email' && <EmailForm handleEmail={handleEmail}/>}

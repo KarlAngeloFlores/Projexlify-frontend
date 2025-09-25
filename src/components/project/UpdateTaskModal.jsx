@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { X, ClipboardEdit, AlertCircle, CheckCircle } from "lucide-react";
+import { X, ClipboardEdit, CheckCircle, CircleX } from "lucide-react";
 import Button from "../Button";
-import '../../styles/animations.css';
+import "../../styles/animations.css";
 
 const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
   const [formData, setFormData] = useState({
@@ -16,7 +16,7 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
 
-  //fill data from initial data
+  // Fill data from initial task
   useEffect(() => {
     if (task) {
       setFormData({
@@ -47,23 +47,21 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setIsSubmitting(true);
     try {
-      const taskData = {
-        projectId: formData.projectId,
-        taskId: formData.taskId,
-        name: formData.name.trim(),
-        contents: formData.contents.trim(),
-        newStatus: formData.newStatus.trim(),
-        remark: formData.remark.trim(),
-      };
-
-      await onUpdateTask(task.id, formData.name, formData.contents, formData.newStatus, formData.remark);
+      await onUpdateTask(
+        task.id,
+        formData.name.trim(),
+        formData.contents.trim(),
+        formData.newStatus.trim(),
+        formData.remark.trim()
+      );
       onClose();
     } catch (error) {
       console.error("Error updating task:", error);
-      setErrors({ submit: error.message || "Failed to update task. Please try again." });
+      setErrors({
+        submit: error.message || "Failed to update task. Please try again.",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -87,22 +85,33 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
       />
 
       {/* Modal */}
-      <div className="modal-animation relative w-full max-w-md bg-gray-800/95 backdrop-blur-md rounded-2xl border border-gray-700 shadow-2xl">
+      <div className="modal-animation relative w-full max-w-md 
+        bg-white/95 dark:bg-gray-800/95 backdrop-blur-md 
+        rounded-2xl border border-gray-200 dark:border-gray-700 
+        shadow-2xl transform transition-all"
+      >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-700">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center">
             <div className="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center mr-3">
               <ClipboardEdit className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">Update Task</h2>
-              <p className="text-sm text-gray-400">Modify task details</p>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                Update Task
+              </h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Modify task details
+              </p>
             </div>
           </div>
           <button
             onClick={handleClose}
             disabled={isSubmitting}
-            className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors disabled:opacity-50"
+            className="p-2 text-gray-600 dark:text-gray-400 
+              hover:text-gray-900 dark:hover:text-white 
+              hover:bg-gray-100 dark:hover:bg-gray-700 
+              rounded-lg transition-colors disabled:opacity-50"
           >
             <X className="w-5 h-5" />
           </button>
@@ -110,10 +119,10 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
 
         {/* Form */}
         <div className="p-6">
-          <div className="space-y-2">
+          <div className="space-y-4">
             {/* Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Task Name *
               </label>
               <input
@@ -122,13 +131,18 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
                 value={formData.name}
                 onChange={handleInfoChange}
                 disabled={isSubmitting}
-                className={`w-full px-4 py-3 bg-gray-900/50 border rounded-lg text-white focus:outline-none focus:ring-2 transition-all border-gray-600 focus:ring-blue-500`}
+                className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 
+                  border border-gray-300 dark:border-gray-600 
+                  rounded-lg text-gray-900 dark:text-white 
+                  placeholder-gray-500 dark:placeholder-gray-400 
+                  focus:outline-none focus:ring-2 focus:ring-blue-500 
+                  focus:border-transparent transition-all"
               />
             </div>
 
             {/* Contents */}
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Contents *
               </label>
               <textarea
@@ -137,13 +151,18 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
                 onChange={handleInfoChange}
                 rows={3}
                 disabled={isSubmitting}
-                className={`w-full px-4 py-3 bg-gray-900/50 border rounded-lg text-white resize-none focus:outline-none focus:ring-2 transition-all border-gray-600 focus:ring-blue-500`}
+                className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 
+                  border border-gray-300 dark:border-gray-600 
+                  rounded-lg text-gray-900 dark:text-white 
+                  placeholder-gray-500 dark:placeholder-gray-400 
+                  focus:outline-none focus:ring-2 focus:ring-blue-500 
+                  focus:border-transparent transition-all resize-none"
               />
             </div>
 
             {/* Status */}
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Status *
               </label>
               <select
@@ -151,7 +170,11 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
                 value={formData.newStatus}
                 onChange={handleInfoChange}
                 disabled={isSubmitting}
-                className={`w-full px-4 py-3 bg-gray-900/50 border rounded-lg text-white focus:outline-none focus:ring-2 transition-all border-gray-600 focus:ring-blue-500`}
+                className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 
+                  border border-gray-300 dark:border-gray-600 
+                  rounded-lg text-gray-900 dark:text-white 
+                  focus:outline-none focus:ring-2 focus:ring-blue-500 
+                  focus:border-transparent transition-all"
               >
                 <option value="todo">To Do</option>
                 <option value="in_progress">In Progress</option>
@@ -161,7 +184,7 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
 
             {/* Remark */}
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Remark *
               </label>
               <textarea
@@ -170,15 +193,29 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
                 onChange={handleInfoChange}
                 rows={2}
                 disabled={isSubmitting}
-                className={`w-full px-4 py-3 bg-gray-900/50 border rounded-lg text-white resize-none focus:outline-none focus:ring-2 transition-all border-gray-600 focus:ring-blue-500`}
+                className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 
+                  border border-gray-300 dark:border-gray-600 
+                  rounded-lg text-gray-900 dark:text-white 
+                  placeholder-gray-500 dark:placeholder-gray-400 
+                  focus:outline-none focus:ring-2 focus:ring-blue-500 
+                  focus:border-transparent transition-all resize-none"
               />
             </div>
 
-            {errors.submit && <p className="mt-2 text-sm text-red-500">{errors.submit}</p>}
+            {errors.submit && (
+              <div className="p-4 bg-red-50 dark:bg-red-900/20 
+                border border-red-200 dark:border-red-500/30 rounded-lg"
+              >
+                <div className="flex items-center text-sm text-red-700 dark:text-red-400">
+                  <CircleX size={18} className="mr-2 flex-shrink-0" />
+                  {errors.submit}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Actions */}
-          <div className="flex items-center justify-end gap-3 mt-8 pt-6 border-t border-gray-700">
+          <div className="flex items-center justify-end gap-3 mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
             <Button
               type="button"
               onClick={handleClose}
@@ -208,8 +245,6 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
                 </>
               )}
             </Button>
-
-
           </div>
         </div>
       </div>

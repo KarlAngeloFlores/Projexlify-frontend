@@ -10,15 +10,13 @@ const ProjectRow = ({ project, handleOpenUpdate, handleOpenDelete }) => {
     navigate(`/project/${project.id}`);
   };
 
-
-
   return (
-    <tr className="border-b border-gray-700 hover:bg-gray-800/30 transition-colors">
+    <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
       {/* Project Name */}
       <td className="px-6 py-4">
         <div
           onClick={navigateProject}
-          className="font-medium text-gray-200 hover:underline hover:text-blue-300 cursor-pointer"
+          className="font-medium text-gray-900 dark:text-gray-200 hover:underline hover:text-blue-600 dark:hover:text-blue-300 cursor-pointer"
         >
           {project.name}
         </div>
@@ -26,26 +24,26 @@ const ProjectRow = ({ project, handleOpenUpdate, handleOpenDelete }) => {
 
       {/* Status */}
       <td className="px-6 py-4">
-    <StatusProject status={project.status}/>
+        <StatusProject status={project.status}/>
       </td>
 
       {/* Description */}
-      <td className="px-6 py-4 text-gray-300 text-sm truncate max-w-xs">
+      <td className="px-6 py-4 text-gray-600 dark:text-gray-300 text-sm truncate max-w-xs">
         {project.description || (
-          <span className="italic text-gray-500">No description</span>
+          <span className="italic text-gray-400 dark:text-gray-500">No description</span>
         )}
       </td>
 
       {/* Created At */}
       <td className="px-6 py-4">
-        <span className="text-sm text-gray-400">
+        <span className="text-sm text-gray-500 dark:text-gray-400">
           {util.formatDateComplete(project.created_at)}
         </span>
       </td>
 
       {/* User */}
       <td className="px-6 py-4">
-        <span className="text-sm font-medium text-gray-200">{project.user_id}</span>
+        <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{project.user_id}</span>
       </td>
 
       {/* Actions */}
@@ -53,19 +51,19 @@ const ProjectRow = ({ project, handleOpenUpdate, handleOpenDelete }) => {
         <div className="flex gap-2">
           <button
             onClick={() => handleOpenUpdate(project)}
-            className="flex items-center gap-1 px-3 py-1 text-sm text-gray-300 hover:bg-gray-700 rounded transition-colors"
+            className="flex items-center gap-1 px-3 py-1 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
           >
             <Pencil className="w-4 h-4" /> Edit
           </button>
           <button
             onClick={() => handleOpenDelete(project)}
-            className="flex items-center gap-1 px-3 py-1 text-sm text-red-400 hover:bg-red-600/30 rounded transition-colors"
+            className="flex items-center gap-1 px-3 py-1 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-600/30 rounded transition-colors"
           >
             <Trash2 className="w-4 h-4" /> Delete
           </button>
           <button
             onClick={() => navigate(`/history/${project.id}`)}
-            className="flex items-center gap-1 px-3 py-1 text-sm text-blue-400 hover:bg-blue-600/30 rounded transition-colors"
+            className="flex items-center gap-1 px-3 py-1 text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-600/30 rounded transition-colors"
           >
             <History className="w-4 h-4" /> History
           </button>
