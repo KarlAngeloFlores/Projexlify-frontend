@@ -15,7 +15,7 @@ const KanbanTask = ({ task }) => {
 
   // Get status-based styling
   const getTaskStyling = () => {
-    const baseClasses = "relative p-4 rounded-xl shadow-lg border cursor-grab hover:shadow-xl group mb-4";
+    const baseClasses = "relative p-4 rounded-xl shadow-lg border cursor-grab hover:shadow-xl group mb-4 z-50";
     
     switch (task.status) {
       case 'todo':
@@ -44,7 +44,7 @@ const KanbanTask = ({ task }) => {
       style={style}
       {...listeners}
       {...attributes}
-      className={`${getTaskStyling()} ${isDragging ? '' : ''}`}
+      className={`${getTaskStyling()} ${isDragging ? 'z-50' : ''}`}
     > 
       
       {/* Drag Handle */}

@@ -8,7 +8,7 @@ const KanbanColumn = ({ id, title, tasks }) => {
 
 const getColumnStyle = () => {
   const baseStyles =
-    "flex flex-col rounded-2xl p-4 shadow-xl border transition-all duration-300 w-full backdrop-blur-sm";
+    "flex flex-col rounded-2xl p-4 shadow-xl border w-full backdrop-blur-sm";
 
   switch (title) {
     case "To Do":
