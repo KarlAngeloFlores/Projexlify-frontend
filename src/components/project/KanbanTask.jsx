@@ -44,7 +44,7 @@ const KanbanTask = ({ task }) => {
       style={style}
       {...listeners}
       {...attributes}
-      className={`${getTaskStyling()} ${isDragging ? 'rotate-2' : ''}`}
+      className={`${getTaskStyling()} ${isDragging ? '' : ''}`}
     > 
       
       {/* Drag Handle */}
