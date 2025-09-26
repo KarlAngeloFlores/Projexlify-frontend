@@ -1,7 +1,7 @@
 import { Calendar } from "lucide-react";
 import TaskRow from "./TaskRow";
 
-const TaskTable = ({ data, filteredLength, currentLength }) => {
+const TaskTable = ({ data, filteredLength, currentLength, handleOpenView }) => {
   // Define columns here
   const tableColumns = [
     { key: "task", label: "Task" },
@@ -9,6 +9,7 @@ const TaskTable = ({ data, filteredLength, currentLength }) => {
     { key: "remark", label: "Remark" },
     { key: "updated_by", label: "Updated By" },
     { key: "date_time", label: "Date & Time" },
+    { key: "action", label: "Actions" }
   ];
 
   return (
@@ -26,7 +27,7 @@ const TaskTable = ({ data, filteredLength, currentLength }) => {
           </thead>
           <tbody className="divide-y divide-gray-200 dark:divide-gray-800 text-gray-800 dark:text-gray-200">
             {data.map((item) => (
-              <TaskRow key={item.id} item={item} />
+              <TaskRow key={item.id} item={item} handleOpenView={handleOpenView}/>
             ))}
           </tbody>
         </table>

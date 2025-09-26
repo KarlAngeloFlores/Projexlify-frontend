@@ -1,8 +1,8 @@
-import { Calendar, Clock, Edit, Trash2 } from "lucide-react";
+import { Calendar, Clock, Edit, Eye, Trash2 } from "lucide-react";
 import util from "../../utils/util";
 import Status from "../Status";
 
-const TaskRow = ({ task, index, handleOpenUpdate, handleOpenDelete }) => {
+const TaskRow = ({ task, index, handleOpenUpdate, handleOpenDelete, handleOpenView }) => {
   return (
     <tr
       key={task.id}
@@ -16,7 +16,7 @@ const TaskRow = ({ task, index, handleOpenUpdate, handleOpenDelete }) => {
       </td>
 
       {/* Task Name */}
-      <td className="px-6 py-4 max-w-3xs">
+      <td className="px-6 py-4 max-w-[200px] min-w-[200px]">
         <div className="font-medium text-gray-900 dark:text-gray-200 text-sm truncate">
           {task.name}
         </div>
@@ -28,7 +28,7 @@ const TaskRow = ({ task, index, handleOpenUpdate, handleOpenDelete }) => {
       </td>
 
       {/* Contents */}
-      <td className="px-6 py-4 max-w-3xs">
+      <td className="px-6 py-4 max-w-[180px]">
         {task.contents ? (
           <div
             className="text-gray-600 dark:text-gray-300 text-sm truncate"
@@ -60,7 +60,7 @@ const TaskRow = ({ task, index, handleOpenUpdate, handleOpenDelete }) => {
       </td>
 
       {/* Actions */}
-      <td className="px-6 py-4 text-right">
+      <td className="px-6 py-4 text-center">
         <div className="flex items-center justify-end gap-2">
           <button
             onClick={() => handleOpenUpdate(task)}
@@ -73,6 +73,12 @@ const TaskRow = ({ task, index, handleOpenUpdate, handleOpenDelete }) => {
             className="flex items-center gap-1 px-3 py-1 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-600/30 rounded transition-colors"
           >
             <Trash2 className="w-4 h-4" /> Delete
+          </button>
+                    <button
+            onClick={() => handleOpenView(task)}
+            className="flex items-center gap-1 px-3 py-1 text-sm text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-red-green/30 rounded transition-colors"
+          >
+            <Eye className="w-4 h-4" /> View
           </button>
         </div>
       </td>

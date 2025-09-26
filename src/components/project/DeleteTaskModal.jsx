@@ -1,4 +1,4 @@
-import { X, FolderX } from "lucide-react";
+import { X, FileX } from "lucide-react";
 import { useState, useEffect } from "react";
 import Button from "../Button";
 import "../../styles/animations.css";
@@ -51,7 +51,7 @@ const DeleteTaskModal = ({ isOpen, onClose, onDeleteTask, task }) => {
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center">
             <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-600 rounded-lg flex items-center justify-center mr-3">
-              <FolderX className="w-5 h-5 text-white" />
+              <FileX className="w-5 h-5 text-white" />
             </div>
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -80,6 +80,7 @@ const DeleteTaskModal = ({ isOpen, onClose, onDeleteTask, task }) => {
             value={remark}
             onChange={(e) => setRemark(e.target.value)}
             rows={3}
+            maxLength={200}
             placeholder="Enter reason for deletion..."
             className="resize-none w-full px-3 py-2 text-sm bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
           />

@@ -9,6 +9,8 @@ import LoadingScreen from "../components/LoadingScreen";
 import ErrorPage from "../pages/ErrorPage";
 import Logout from "../components/Logout";
 import userService from "../services/user";
+import ViewProjectModal from "../components/history/ViewProjectModal";
+import ViewTaskModal from "../components/history/ViewTaskModal";
 
 const HistoryPage = () => {
   const [loading, setIsLoading] = useState(false);
@@ -23,7 +25,23 @@ const HistoryPage = () => {
   const [taskHistory, setTaskHistory] = useState([]);
   const [user, setUser] = useState(null);
 
+  const [showProjectView, setShowProjectView] = useState(false);
+  const [showTaskView, setShowTaskView] = useState(false);
+
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedTask, setSelectedTask] = useState(null);
+
   const [projectPage, setProjectPage] = useState(1);
+
+  const handleOpenProjectView = (item) => {
+    setSelectedProject(item);
+    setShowProjectView(true);
+  };
+
+  const handleOpenTaskView = (item) => {
+    setSelectedTask(item);
+    setShowTaskView(true);
+  };
 
   const fetchData = async () => {
     try {
@@ -31,6 +49,9 @@ const HistoryPage = () => {
       const member = await userService.getUser();
       const taskLogs = await logService.getTaskHistory(projectId);
       const historyLogs = await logService.getProjectHistory(projectId);
+
+      console.log(taskLogs);
+      console.log(historyLogs);
 
       setProjectHistory(historyLogs.data);
       setTaskHistory(taskLogs.data);
@@ -121,7 +142,7 @@ const HistoryPage = () => {
           <h2 className="text-xl font-semibold text-blue-600 dark:text-blue-400 mb-4">
             Project History
           </h2>
-          <ProjectHistoryTable data={paginatedProjectHistory} projectLength={projectHistory.length} />
+          <ProjectHistoryTable data={paginatedProjectHistory} projectLength={projectHistory.length} handleOpenView={handleOpenProjectView} />
           
           {/* Project Pagination */}
           {totalProjectPages > 1 && (
@@ -170,6 +191,7 @@ const HistoryPage = () => {
             data={paginatedData}
             filteredLength={filteredData.length}
             currentLength={paginatedData.length}
+            handleOpenView={handleOpenTaskView}
           />
 
           {/* Pagination */}
@@ -203,6 +225,10 @@ const HistoryPage = () => {
         </div>
 
       </div>
+
+      <ViewProjectModal isOpen={showProjectView} onClose={() => setShowProjectView(false)} projectHistory={selectedProject}/>
+      <ViewTaskModal isOpen={showTaskView} onClose={() => setShowTaskView(false)} history={selectedTask}/>
+
     </div>
   );
 };

@@ -1,13 +1,13 @@
 import { Calendar } from "lucide-react";
 import ProjectRow from "./ProjectRow";
 
-const ProjectHistoryTable = ({ data, projectLength }) => {
+const ProjectHistoryTable = ({ data, projectLength, handleOpenView }) => {
   const tableColumns = [
-    { key: "project", label: "Project" },
     { key: "status_change", label: "Status Change" },
     { key: "remark", label: "Remark" },
     { key: "updated_by", label: "Updated By" },
     { key: "date_time", label: "Date & Time" },
+    { key: "action", label: "Action" },
   ];
 
   return (
@@ -25,7 +25,7 @@ const ProjectHistoryTable = ({ data, projectLength }) => {
           </thead>
           <tbody>
             {data.map((item) => (
-              <ProjectRow key={item.id} item={item} />
+              <ProjectRow key={item.id} item={item} handleOpenView={handleOpenView} />
             ))}
           </tbody>
         </table>

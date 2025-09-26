@@ -27,7 +27,6 @@ const Filtering = ({ searchTerm, setSearchTerm, statusFilter, setStatusFilter })
           <option value="todo">To Do</option>
           <option value="in_progress">In Progress</option>
           <option value="done">Done</option>
-          <option value="deleted">Cancelled</option>
         </select>
       </div>
     </div>

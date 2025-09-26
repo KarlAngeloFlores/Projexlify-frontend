@@ -190,12 +190,12 @@ const UpdateProjectModal = ({ isOpen, onClose, onUpdateProject, project }) => {
                 onChange={handleInfoChange}
                 placeholder="Describe your changes in the project"
                 rows={2}
-                maxLength={100}
+                maxLength={200}
                 className={`w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none`}
                 disabled={isSubmitting}
               />
               <div className="mt-1 text-xs text-gray-500 dark:text-gray-500 text-right">
-                {formData.remark.length}/100
+                {formData.remark.length}/200
               </div>
             </div>
             {errors.submit && (

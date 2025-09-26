@@ -22,7 +22,7 @@ const ProjectRow = ({ project, handleOpenUpdate, handleOpenDelete }) => {
       }`}
     >
       {/* Project Name */}
-      <td className="px-6 py-4">
+      <td className="px-6 py-4 max-w-[200px] min-w-[200px] truncate overflow-hidden">
         <div
           onClick={navigateProject}
           className={`font-medium ${

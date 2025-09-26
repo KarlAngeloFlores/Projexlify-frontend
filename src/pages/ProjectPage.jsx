@@ -22,6 +22,7 @@ import ProjectInfo from '../components/project/ProjectInfo'
 import Logout from '../components/Logout'
 import UpdateProjectModal from '../components/home/UpdateProjectModal'
 import userService from '../services/user'
+import ViewTaskModal from '../components/project/ViewTaskModal'
 
 const ProjectPage = () => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const ProjectPage = () => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showProjectEditModal, setShowProjectEditModal] = useState(false);
+  const [showViewModal, setShowViewModal] = useState(false);
 
   const [selectedTask, setSeletectedTask] = useState(null);
   const [user, setUser] = useState([]);
@@ -78,6 +80,7 @@ const ProjectPage = () => {
     try {
       setLoading(true);
       const data = await tasksService.getAllTasks(projectId);
+      console.log(data);
       const project = await projectsService.getProject(projectId);
       const memberData = await userService.getUser();
       
@@ -117,6 +120,11 @@ const ProjectPage = () => {
       throw error;
     }
   };
+
+  const handleOpenView = (task) => {
+    setSeletectedTask(task)
+    setShowViewModal(true);
+  }
 
   const handleOpenDelete = (task) => {
     setSeletectedTask(task);
@@ -271,6 +279,7 @@ const ProjectPage = () => {
                 getStatusConfig={getStatusConfig}
                 handleOpenUpdate={handleOpenUpdate}
                 handleOpenDelete={handleOpenDelete}
+                handleOpenView={handleOpenView}
               />
             )}
             {viewMode === "kanban" && (
@@ -307,6 +316,12 @@ const ProjectPage = () => {
         onClose={() => setShowProjectEditModal(false)}
         onUpdateProject={handleUpdateProject}
         project={project}
+      />
+
+      <ViewTaskModal 
+      isOpen={showViewModal}
+      onClose={() => setShowViewModal(false)}
+      task={selectedTask}
       />
     </div>
   )

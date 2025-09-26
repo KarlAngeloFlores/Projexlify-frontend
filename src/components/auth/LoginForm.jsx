@@ -93,6 +93,7 @@ const LoginForm = ({setCurrentAuth}) => {
                     name="email"
                     value={creds.email}
                     onChange={handleCredsChange}
+                    maxLength={100}
                     required
                     className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     placeholder="Enter your email"
@@ -107,6 +108,7 @@ const LoginForm = ({setCurrentAuth}) => {
                     type="password"
                     id="password"
                     name="password"
+                    maxLength={100}
                     value={creds.password}
                     onChange={handleCredsChange}
                     required

@@ -130,6 +130,7 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
                 name="name"
                 value={formData.name}
                 onChange={handleInfoChange}
+                maxLength={100}
                 disabled={isSubmitting}
                 className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 
                   border border-gray-300 dark:border-gray-600 
@@ -149,6 +150,7 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
                 name="contents"
                 value={formData.contents}
                 onChange={handleInfoChange}
+                maxLength={300}
                 rows={3}
                 disabled={isSubmitting}
                 className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 
@@ -191,6 +193,7 @@ const UpdateTaskModal = ({ isOpen, onClose, onUpdateTask, task }) => {
                 name="remark"
                 value={formData.remark}
                 onChange={handleInfoChange}
+                maxLength={200}
                 rows={2}
                 disabled={isSubmitting}
                 className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 

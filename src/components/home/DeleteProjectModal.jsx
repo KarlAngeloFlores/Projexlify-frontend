@@ -78,6 +78,7 @@ const DeleteProjectModal = ({ isOpen, onClose, onDeleteProject, project }) => {
             value={remark}
             onChange={(e) => setRemark(e.target.value)}
             rows={3}
+            maxLength={200}
             placeholder="Enter reason for deletion..."
             className="resize-none w-full px-3 py-2 text-sm bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
           />

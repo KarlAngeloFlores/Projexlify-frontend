@@ -101,6 +101,7 @@ const RegisterForm = ({ setCurrentAuth, setEmail, setPassword, setToken }) => {
                   id="username"
                   name="username"
                   value={creds.username}
+                  maxLength={100}
                   onChange={handleCredsChange}
                   required
                   className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
@@ -119,6 +120,7 @@ const RegisterForm = ({ setCurrentAuth, setEmail, setPassword, setToken }) => {
                   type="email"
                   id="email"
                   name="email"
+                  maxLength={100}
                   value={creds.email}
                   onChange={handleCredsChange}
                   required
@@ -140,7 +142,7 @@ const RegisterForm = ({ setCurrentAuth, setEmail, setPassword, setToken }) => {
                   name="password"
                   value={creds.password}
                   onChange={handleCredsChange}
-                  maxLength={50}
+                  maxLength={100}
                   required
                   className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   placeholder="Enter your password"

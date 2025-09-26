@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import TaskRow from "./TaskRow";
 
-const TaskTable = ({ tasks, sortBy, sortOrder, handleSort, handleOpenUpdate, handleOpenDelete }) => {
+const TaskTable = ({ tasks, sortBy, sortOrder, handleSort, handleOpenUpdate, handleOpenDelete, handleOpenView }) => {
   const tableColumns = [
     { key: "id", label: "ID" },
     { key: "name", label: "Task Name" },
@@ -9,7 +9,7 @@ const TaskTable = ({ tasks, sortBy, sortOrder, handleSort, handleOpenUpdate, han
     { key: "contents", label: "Content", sortable: false },
     { key: "created_at", label: "Created" },
     { key: "updated_at", label: "Updated" },
-    { key: "actions", label: "Actions", sortable: false, align: "right" },
+    { key: "actions", label: "Actions", sortable: false, align: "center" },
   ];
 
   return (
@@ -55,6 +55,7 @@ const TaskTable = ({ tasks, sortBy, sortOrder, handleSort, handleOpenUpdate, han
                 index={index}
                 handleOpenUpdate={handleOpenUpdate}
                 handleOpenDelete={handleOpenDelete}
+                handleOpenView={handleOpenView}
               />
             ))}
           </tbody>

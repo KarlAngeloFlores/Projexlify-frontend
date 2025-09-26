@@ -1,19 +1,10 @@
-import { ArrowRight, FileText, User, Clock } from "lucide-react";
+import { ArrowRight, FileText, User, Clock, Eye } from "lucide-react";
 import util from "../../utils/util";
 import StatusProject from "../StatusProject";
 
-const ProjectRow = ({ item }) => {
+const ProjectRow = ({ item, handleOpenView }) => {
   return (
     <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
-      {/* Project Info */}
-      <td className="px-6 py-4 max-w-3xs">
-        <div>
-          <div className="font-medium text-gray-900 dark:text-gray-200 mt-1 truncate">
-            Project
-          </div>
-        </div>
-      </td>
-
       {/* Status Change */}
       <td className="px-6 py-4">
         <div className="flex items-center gap-2">
@@ -39,7 +30,7 @@ const ProjectRow = ({ item }) => {
         {item.remark ? (
           <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
             <FileText className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-            <span className="text-xs truncate">{item.remark}</span>
+            <span className="text-xs truncate max-w-[200px] min-w-[200px]">{item.remark}</span>
           </div>
         ) : (
           <span className="text-sm text-gray-500 dark:text-gray-400 italic">
@@ -52,7 +43,7 @@ const ProjectRow = ({ item }) => {
       <td className="px-6 py-4">
         <div className="flex items-center gap-2">
           <User className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-          <span className="text-sm font-medium text-gray-900 dark:text-gray-200">
+          <span className="text-sm font-medium text-gray-900 dark:text-gray-200 max-w-[100px] min-w-[100px] overflow-hidden text-ellipsis">
             {item.updated_by}
           </span>
         </div>
@@ -67,6 +58,16 @@ const ProjectRow = ({ item }) => {
           </span>
         </div>
       </td>
+
+        <td className="text-left">
+                    
+            <button
+            onClick={() => handleOpenView(item)}
+            className="flex items-center gap-1 px-3 py-1 text-sm text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-red-green/30 rounded transition-colors"
+          >
+            <Eye className="w-4 h-4" /> View
+          </button>
+        </td>
     </tr>
   );
 };
