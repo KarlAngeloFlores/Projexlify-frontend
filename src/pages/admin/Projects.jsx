@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import ProjectTable from "../../components/home/ProjectTable";
 import ProjectCard from "../../components/home/ProjectCard";
 import projectsService from "../../services/projects";
-import { Search, Table, Filter } from "lucide-react";
+import { Search, Table, Filter, ClipboardList, Play, CheckCircle, Trash2 } from "lucide-react";
 import UpdateProjectModal from "../../components/home/UpdateProjectModal";
 import DeleteProjectModal from "../../components/home/DeleteProjectModal";
+import AdminProjectCard from "../../components/admin/AdminProjectCard";
 
 const Projects = ({ projects, setProjects }) => {
   const [viewMode, setViewMode] = useState("cards");
@@ -42,7 +43,6 @@ const Projects = ({ projects, setProjects }) => {
       );
 
       const newProject = data.project;
-      console.log(data.project);
 
       setProjects((prev) =>
         prev.map((project) =>
@@ -58,7 +58,23 @@ const Projects = ({ projects, setProjects }) => {
   const handleSoftDelete = async (projectId, remark) => {
     try {
       const data = await projectsService.deleteProject(projectId, remark);
-      console.log(data);
+      const deletedProject = data.project;
+
+      setProjects((prev) =>
+        prev.map((project) =>
+          project.id === projectId ? { ...project, ...deletedProject } : project
+        )
+      );
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
+  const handleHardDelete = async (projectId) => {
+    try {
+      await projectsService.hardDeleteProject(projectId);
+
       setProjects((prev) =>
         prev.filter((project) => project.id !== projectId)
       );
@@ -67,6 +83,31 @@ const Projects = ({ projects, setProjects }) => {
       throw error;
     }
   };
+
+  const handleRestore = async (projectId) => {
+    try {
+      const data = await projectsService.restoreProject(projectId);
+      const restoredProject = data.project;
+
+      setProjects((prev) =>
+        prev.map((project) =>
+          project.id === projectId ? { ...project, ...restoredProject } : project
+        )
+      );
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // Count stats
+  const stats = useMemo(() => {
+    return {
+      planned: projects.filter((p) => p.status === "planned").length,
+      active: projects.filter((p) => p.status === "active").length,
+      completed: projects.filter((p) => p.status === "completed").length,
+      deleted: projects.filter((p) => p.status === "deleted").length,
+    };
+  }, [projects]);
 
   // Filtering
   const filteredProjects = projects.filter((project) => {
@@ -84,6 +125,42 @@ const Projects = ({ projects, setProjects }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+
+      {/* Dashboard stats */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <div className="flex items-center gap-3 p-4 bg-white dark:bg-gray-800 rounded-xl shadow">
+          <ClipboardList className="w-6 h-6 text-blue-500" />
+          <div>
+            <p className="text-sm text-gray-500">Planned</p>
+            <p className="text-xl font-semibold">{stats.planned}</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 p-4 bg-white dark:bg-gray-800 rounded-xl shadow">
+          <Play className="w-6 h-6 text-green-500" />
+          <div>
+            <p className="text-sm text-gray-500">Active</p>
+            <p className="text-xl font-semibold">{stats.active}</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 p-4 bg-white dark:bg-gray-800 rounded-xl shadow">
+          <CheckCircle className="w-6 h-6 text-purple-500" />
+          <div>
+            <p className="text-sm text-gray-500">Completed</p>
+            <p className="text-xl font-semibold">{stats.completed}</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 p-4 bg-white dark:bg-gray-800 rounded-xl shadow">
+          <Trash2 className="w-6 h-6 text-red-500" />
+          <div>
+            <p className="text-sm text-gray-500">Deleted</p>
+            <p className="text-xl font-semibold">{stats.deleted}</p>
+          </div>
+        </div>
+      </div>
+
       {/* Filters and search */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
         {/* Search */}
@@ -136,11 +213,13 @@ const Projects = ({ projects, setProjects }) => {
         {viewMode === "cards" && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjects.map((project) => (
-              <ProjectCard
+              <AdminProjectCard
                 key={`project-${project.id}`}
                 project={project}
                 handleOpenUpdate={handleOpenUpdate}
                 handleOpenDelete={handleOpenDelete}
+                handleHardDelete={handleHardDelete}
+                handleRestore={handleRestore}
               />
             ))}
           </div>

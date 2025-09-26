@@ -75,9 +75,36 @@ const projectsService = {
         try {
             
             const { data } = await api.get('/admin/get_all_projects');
-            
             return data;
 
+        } catch (error) {
+            const msg = error.response?.data?.message || error.message;
+            throw new Error(msg);
+        }
+    },
+    
+    hardDeleteProject: async (id) => {
+        try {
+            
+            const { data } = await api.delete('/admin/delete_project', {
+                params: { id } 
+            });
+            return data;
+
+        } catch (error) {
+            const msg = error.response?.data?.message || error.message;
+            throw new Error(msg);
+        }
+    },
+
+    restoreProject: async (id) => {
+        try {
+
+            const { data } = await api.patch('/admin/restore_project', { 
+                id
+             });
+            return data;
+            
         } catch (error) {
             const msg = error.response?.data?.message || error.message;
             throw new Error(msg);
