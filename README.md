@@ -1,6 +1,12 @@
 # Projexlify - Project Management App
 > Frontend
 
+## Deployment
+- **Backend:** [https://projexlify-backend-1.onrender.com](https://projexlify-backend-1.onrender.com)
+- **Frontend:** [https://projexlify.netlify.app/](https://projexlify.netlify.app/)
+
+> Note: For local development, frontend runs on `http://localhost:5173` and backend on `http://localhost:5000`.
+
 #### Overview
 This repository contains the **frontend** of the Projexlify - Project Management App, developed with **React (Vite)**. The frontend provides a clean and responsive user interface for managing projects and tasks. It communicates with the backend via REST APIs and supports authentication/authorization.
 
@@ -23,7 +29,7 @@ This repository contains the **frontend** of the Projexlify - Project Management
 - **Modern UI**: Built with Tailwind CSS + reusable components.
 - **Filtering & Pagination**: Easy tasks, projects, logs, and users browsing.
 
-## Installation & Setup
+## Installation & Setup local (development)
 > ⚠️ **Important:** For the frontend features to work properly, you must **run the backend server first**.  
 
 > Backend repository: **https://github.com/KarlAngeloFlores/Projexlify-backend.git**
