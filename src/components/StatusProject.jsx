@@ -1,4 +1,4 @@
-import { Clock, PlayCircle, CheckCircle2 } from "lucide-react";
+import { Clock, PlayCircle, CheckCircle2, Trash } from "lucide-react";
 
 const StatusProject = ({ status }) => {
   const baseStyle =
@@ -12,6 +12,8 @@ const StatusProject = ({ status }) => {
         return `${baseStyle} bg-yellow-500/20 border-yellow-500/30 text-yellow-700 dark:text-yellow-300`;
       case "completed":
         return `${baseStyle} bg-green-500/20 border-green-500/30 text-green-700 dark:text-green-300`;
+      case "deleted":
+        return `${baseStyle} bg-red-500/20 border-red-500/30 text-red-700 dark:text-red-300` 
       default:
         return `${baseStyle} bg-gray-500/20 border-gray-500/30 text-gray-700 dark:text-gray-300`;
     }
@@ -25,6 +27,8 @@ const StatusProject = ({ status }) => {
         return <PlayCircle className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />;
       case "completed":
         return <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-emerald-400" />;
+      case "deleted":
+        return <Trash className="w-4 h-4 text-red-600 dark:text-red-400" />
       default:
         return <Clock className="w-4 h-4 text-gray-600 dark:text-gray-400" />;
     }
@@ -38,6 +42,8 @@ const StatusProject = ({ status }) => {
         return "Active";
       case "completed":
         return "Completed";
+      case "deleted":
+        return "Deleted";
       default:
         return "Unknown";
     }

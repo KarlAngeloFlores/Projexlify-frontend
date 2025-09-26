@@ -10,12 +10,16 @@ const ProjectCard = ({ project, handleOpenUpdate, handleOpenDelete }) => {
   const navigate = useNavigate();
 
   const navigateProject = () => {
-    navigate(`/project/${project.id}`);
-  }
+    if (project.status !== "deleted") {
+      navigate(`/project/${project.id}`);
+    }
+  };
 
   const navigateHistory = () => {
-    navigate(`/history/${project.id}`);
-  }
+    if (project.status !== "deleted") {
+      navigate(`/history/${project.id}`);
+    }
+  };
 
   //close menu when clicking outside
   useEffect(() => {
@@ -29,10 +33,16 @@ const ProjectCard = ({ project, handleOpenUpdate, handleOpenDelete }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const isDeleted = project.status === "deleted";
+
   return (
     <div
       key={project.id}
-      className="group bg-white/80 dark:bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all hover:transform hover:scale-[1.02] cursor-pointer overflow-hidden relative shadow-md dark:shadow-none"
+      className={`group bg-white/80 dark:bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-200 dark:border-gray-700 relative shadow-md dark:shadow-none transition-all overflow-hidden
+        ${isDeleted 
+          ? "cursor-not-allowed opacity-60 pointer-events-none" 
+          : "cursor-pointer hover:border-gray-300 dark:hover:border-gray-600 hover:scale-[1.02]"}
+      `}
     >
       {/* Project Header */}
       <div className="p-6">
@@ -45,7 +55,7 @@ const ProjectCard = ({ project, handleOpenUpdate, handleOpenDelete }) => {
               <h3 className="font-semibold text-gray-900 dark:text-white text-lg group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors truncate max-w-[240px]">
                 {project.name}
               </h3>
-              <StatusProject status={project.status}/>
+              <StatusProject status={project.status} />
             </div>
           </div>
 
@@ -54,11 +64,12 @@ const ProjectCard = ({ project, handleOpenUpdate, handleOpenDelete }) => {
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="transition-opacity p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+              disabled={isDeleted}
             >
               <MoreHorizontal className="w-5 h-5 text-gray-500 dark:text-gray-400" />
             </button>
 
-            {menuOpen && (
+            {menuOpen && !isDeleted && (
               <div className="absolute right-0 mt-2 w-36 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
                 <button
                   onClick={() => {
@@ -111,14 +122,26 @@ const ProjectCard = ({ project, handleOpenUpdate, handleOpenDelete }) => {
           <div className="flex items-center gap-2">
             <button
               onClick={navigateHistory}
-              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm font-medium transition-colors"
+              disabled={isDeleted}
+              className={`text-sm font-medium transition-colors ${
+                isDeleted
+                  ? "text-gray-400 cursor-not-allowed"
+                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              }`}
             >
               View History
             </button>
-            <button onClick={navigateProject} className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium transition-colors">
+            <button
+              onClick={navigateProject}
+              disabled={isDeleted}
+              className={`text-sm font-medium transition-colors ${
+                isDeleted
+                  ? "text-gray-400 cursor-not-allowed"
+                  : "text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+              }`}
+            >
               View
             </button>
-
           </div>
         </div>
       </div>

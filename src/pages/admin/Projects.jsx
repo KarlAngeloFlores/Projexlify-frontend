@@ -112,6 +112,7 @@ const Projects = ({ projects, setProjects }) => {
               <option value="planned">Planned</option>
               <option value="active">Active</option>
               <option value="completed">Completed</option>
+              <option value="deleted">Deleted</option>
             </select>
           </div>
 
