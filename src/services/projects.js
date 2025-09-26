@@ -74,7 +74,7 @@ const projectsService = {
     getAllProjects: async () => {
         try {
             
-            const { data } = await api.get('/admin/projects');
+            const { data } = await api.get('/admin/get_all_projects');
             
             return data;
 

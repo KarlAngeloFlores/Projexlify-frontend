@@ -28,7 +28,7 @@ const Logout = ({ user }) => {
           <div className="bg-gradient-to-r from-blue-400 to-purple-400 w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold">
             {user?.username ? user.username[0].toUpperCase() : "U"}
           </div>
-          <span className="text-gray-900 dark:text-white">
+          <span className="text-gray-900 dark:text-white sm:block hidden">
             {user ? user.username : "User"}
           </span>
           <ChevronDown

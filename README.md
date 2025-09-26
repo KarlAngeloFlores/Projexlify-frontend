@@ -10,15 +10,18 @@ This repository contains the **frontend** of the Projexlify - Project Management
 - **Axios/Fetch** – API communication  
 - **Tailwind CSS** – Styling  
 - **Lucide-react** – Icons  
+- **dnd-kit** – Drag-and-drop functionality  
 - **JWT (via backend)** – Authentication
 
 ## Features
 - **Authentication**: Login & register with secure JWT-based sessions (via http cookies).
 - **Project Management**: Create, view, edit, delete, and manage tasks within project.
 - **Task Management**: Add, update, delete, and track tasks inside projects.
+- **Admin Page**: Admin can manage all projects, tasks, logs, and users, bypassing normal access restrictions.
+- **Dark/Light Mode**: Toggle between dark and light themes for a personalized UI experience.
 - **Drag and Drop**: Change status interactively.
 - **Modern UI**: Built with Tailwind CSS + reusable components.
-- **Filtering & Pagination**: Easy task/project browsing.
+- **Filtering & Pagination**: Easy tasks, projects, logs, and users browsing.
 
 ## Installation & Setup
 > ⚠️ **Important:** For the frontend features to work properly, you must **run the backend server first**.  

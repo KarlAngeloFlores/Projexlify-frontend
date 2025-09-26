@@ -33,6 +33,14 @@ const handleDragEnd = async (event) => {
 
   //update task array if new status changed
   setTasks((prevTasks) => {
+
+      const currentTask = prevTasks.find((t) => t.id === taskId);
+
+    // 🚨 Early exit if status didn’t change
+    if (currentTask.status === newStatus) {
+      return prevTasks;
+    }
+
     updatedTasks = prevTasks.map((task) =>
       task.id === taskId ? { ...task, status: newStatus } : task
     );

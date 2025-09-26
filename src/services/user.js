@@ -16,7 +16,7 @@ const userService = {
     getAllUsers: async () => {
         try {
             
-            const { data } = await api.get('/admin/users');
+            const { data } = await api.get('/admin/get_users');
             return data;
 
         } catch (error) {
@@ -27,7 +27,7 @@ const userService = {
 
     deleteUser: async (id) => {
     try {
-        const { data } = await api.delete(`/admin/user`, {
+        const { data } = await api.delete(`/admin/delete_user`, {
         params: { id } 
         });
         return data;
@@ -40,7 +40,7 @@ const userService = {
     updateUsername: async (id, username) => {
         try {
             
-            const { data } = await api.patch('/admin/user', {
+            const { data } = await api.patch('/admin/patch_user', {
                 id, username
             });
 

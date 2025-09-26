@@ -99,11 +99,11 @@ const HistoryPage = () => {
                 <ArrowLeft className="w-5 h-5" />
               </button>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent flex items-center">
+                <h1 className="sm:text-3xl text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent flex items-center">
                   <History className="w-8 h-8 mr-3 text-blue-600 dark:text-blue-400" />
                   History
                 </h1>
-                <p className="text-gray-600 dark:text-gray-400 mt-1">
+                <p className="text-gray-600 dark:text-gray-400 mt-1 sm:text-base text-sm max-w-[80%]">
                   Track all project and task status changes
                 </p>
               </div>

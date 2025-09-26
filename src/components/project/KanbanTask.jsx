@@ -7,34 +7,48 @@ const KanbanTask = ({ task }) => {
     id: String(task.id), // dnd-kit requires string ids
   });
 
-  const style = {
-    transform: transform
-      ? `translate(${transform.x}px, ${transform.y}px)`
-      : undefined,
-  };
+const style = {
+  transform: transform
+    ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+    : undefined,
+  transition: isDragging ? "none" : "transform 0.2s ease", // Smooth snapping back
+  willChange: "transform", // Hint to GPU
+  zIndex: isDragging ? 50 : "auto",
+};
 
   // Get status-based styling
   const getTaskStyling = () => {
-    const baseClasses = "relative p-4 rounded-xl shadow-lg border cursor-grab hover:shadow-xl group mb-4 z-50";
+    const baseClasses = "relative p-4 rounded-xl shadow-lg border cursor-grab hover:shadow-xl group mb-4 z-50 select-none";
     
     switch (task.status) {
       case 'todo':
-        return `${baseClasses} bg-gradient-to-br from-slate-50 to-slate-100 border-slate-200 hover:border-slate-300 text-slate-800`;
+        return `${baseClasses} bg-gradient-to-br from-gray-100 to-gray-200 dark:from-slate-50 dark:to-slate-100 border-gray-300 dark:border-slate-200 hover:border-gray-400 dark:hover:border-slate-300 text-gray-800 dark:text-slate-800`;
       case 'in_progress':
-        return `${baseClasses} bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200 hover:border-amber-300 text-amber-900`;
+        return `${baseClasses} bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-50 dark:to-orange-50 border-amber-300 dark:border-amber-200 hover:border-amber-400 dark:hover:border-amber-300 text-amber-900 dark:text-amber-900`;
       case 'done':
-        return `${baseClasses} bg-gradient-to-br from-emerald-50 to-green-50 border-emerald-200 hover:border-emerald-300 text-emerald-900`;
+        return `${baseClasses} bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-50 dark:to-green-50 border-emerald-300 dark:border-emerald-200 hover:border-emerald-400 dark:hover:border-emerald-300 text-emerald-900 dark:text-emerald-900`;
     }
   };
 
   const getDragHandleColor = () => {
     switch (task.status) {
       case 'todo':
-        return 'text-slate-400 group-hover:text-slate-600';
+        return 'text-gray-400 dark:text-slate-400 group-hover:text-gray-600 dark:group-hover:text-slate-600';
       case 'in_progress':
-        return 'text-amber-400 group-hover:text-amber-600';
+        return 'text-amber-400 dark:text-amber-400 group-hover:text-amber-600 dark:group-hover:text-amber-600';
       case 'done':
-        return 'text-emerald-400 group-hover:text-emerald-600';
+        return 'text-emerald-400 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600';
+    }
+  };
+
+  const getBorderColor = () => {
+    switch (task.status) {
+      case 'todo':
+        return 'border-gray-300 dark:border-black/10';
+      case 'in_progress':
+        return 'border-amber-300 dark:border-black/10';
+      case 'done':
+        return 'border-emerald-300 dark:border-black/10';
     }
   };
 
@@ -73,7 +87,7 @@ const KanbanTask = ({ task }) => {
       )}
 
       {/* Task Footer */}
-      <div className="flex items-center justify-between text-xs mt-4 pt-3 border-t border-black/10">
+      <div className={`flex items-center justify-between text-xs mt-4 pt-3 border-t ${getBorderColor()}`}>
         {/* Created Date */}
         <div className="flex items-center opacity-60">
           <Calendar size={12} className="mr-1" />
@@ -82,10 +96,6 @@ const KanbanTask = ({ task }) => {
 
       </div>
 
-      {/* Updated indicator (if recently updated) */}
-      {task.updated_at !== task.created_at && (
-        <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-400 rounded-full border-2 border-white shadow-sm"></div>
-      )}
     </div>
   );
 };

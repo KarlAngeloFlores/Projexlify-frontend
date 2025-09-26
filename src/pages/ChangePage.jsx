@@ -78,7 +78,7 @@ const ChangePage = () => {
   return (
     <>
     <div className="w-full min-h-screen bg-gray-100" />
-    <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="fixed inset-0 flex items-center justify-center z-50 px-4">
 
       <div className="w-full max-w-md modal-animation">
         <div className="bg-white dark:bg-gray-800/70 backdrop-blur-md rounded-2xl border border-gray-300 dark:border-gray-700 p-8 shadow-2xl relative">
