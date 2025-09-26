@@ -13,7 +13,7 @@ const style = {
     : undefined,
   transition: isDragging ? "none" : "transform 0.2s ease", // Smooth snapping back
   willChange: "transform", // Hint to GPU
-  zIndex: isDragging ? 50 : "auto",
+  zIndex: isDragging ? 9999 : "auto",
 };
 
   // Get status-based styling
@@ -58,7 +58,7 @@ const style = {
       style={style}
       {...listeners}
       {...attributes}
-      className={`${getTaskStyling()} ${isDragging ? 'z-50' : ''}`}
+      className={`${getTaskStyling()} ${isDragging ? 'z-[9999]' : ''}`}
     > 
       
       {/* Drag Handle */}
