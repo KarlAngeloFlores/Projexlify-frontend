@@ -3,6 +3,10 @@
 
 
 #root {
-    background-color: #030712;
-    min-height: 100vh;
+  background-color: #ffffff; /* light mode default */
+  min-height: 100vh;
+}
+
+#root:dark {
+  background-color: #030712; /* dark mode */
 }
