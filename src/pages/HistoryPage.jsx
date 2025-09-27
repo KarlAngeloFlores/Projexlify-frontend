@@ -50,14 +50,10 @@ const HistoryPage = () => {
       const taskLogs = await logService.getTaskHistory(projectId);
       const historyLogs = await logService.getProjectHistory(projectId);
 
-      console.log(taskLogs);
-      console.log(historyLogs);
-
       setProjectHistory(historyLogs.data);
       setTaskHistory(taskLogs.data);
       setUser(member.data);
     } catch (error) {
-      console.log(error);
       setError(error.message);
     } finally {
       setIsLoading(false);

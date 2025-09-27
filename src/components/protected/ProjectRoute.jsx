@@ -32,7 +32,7 @@ const ProjectRoute = ({ children }) => {
     }, [projectId, navigate]);
 
     if(loading) return <LoadingScreen message='Checking Project Access...'/>
-    if(!authorized) return null;
+    if(!authorized) return navigate('/auth');
     return <>{children}</>
 }
 

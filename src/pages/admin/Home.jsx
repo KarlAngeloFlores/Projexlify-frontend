@@ -30,11 +30,8 @@ const Home = () => {
         setProjects(projects.data);
         setUser(user.data);
         setUsers(users.data);
-        console.log(users)
 
     } catch (error) {
-
-      console.log(error);
       setError(error);
 
     } finally {

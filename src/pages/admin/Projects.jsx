@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import ProjectTable from "../../components/home/ProjectTable";
 import ProjectCard from "../../components/home/ProjectCard";
 import projectsService from "../../services/projects";
-import { Search, Table, Filter, ClipboardList, Play, CheckCircle, Trash2 } from "lucide-react";
+import { Search, Table, Filter, ClipboardList, Play, CheckCircle, Trash2, FolderOpen } from "lucide-react";
 import UpdateProjectModal from "../../components/home/UpdateProjectModal";
 import DeleteProjectModal from "../../components/home/DeleteProjectModal";
 import AdminProjectCard from "../../components/admin/AdminProjectCard";
@@ -50,7 +50,6 @@ const Projects = ({ projects, setProjects }) => {
         )
       );
     } catch (error) {
-      console.log(error);
       throw error;
     }
   };
@@ -66,7 +65,6 @@ const Projects = ({ projects, setProjects }) => {
         )
       );
     } catch (error) {
-      console.log(error);
       throw error;
     }
   };
@@ -79,7 +77,6 @@ const Projects = ({ projects, setProjects }) => {
         prev.filter((project) => project.id !== projectId)
       );
     } catch (error) {
-      console.log(error);
       throw error;
     }
   };
@@ -99,7 +96,7 @@ const Projects = ({ projects, setProjects }) => {
     }
   };
 
-  // Count stats
+  //Count stats
   const stats = useMemo(() => {
     return {
       planned: projects.filter((p) => p.status === "planned").length,
@@ -109,7 +106,7 @@ const Projects = ({ projects, setProjects }) => {
     };
   }, [projects]);
 
-  // Filtering
+  //Filtering
   const filteredProjects = projects.filter((project) => {
     const name = project.name || "";
     const description = project.description || "";
@@ -208,7 +205,26 @@ const Projects = ({ projects, setProjects }) => {
         </div>
       </div>
 
-      {/* Projects content */}
+      {
+        filteredProjects.length === 0 ? 
+        (<>
+          <div className="text-center py-16 bg-white/60 dark:bg-gray-900/40 rounded-lg border border-gray-200 dark:border-gray-700">
+            <FolderOpen className="w-16 h-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">
+              {searchTerm || statusFilter !== "all"
+                ? "No matching projects"
+                : "No projects yet"}
+            </h3>
+            <p className="text-gray-500 dark:text-gray-500 mb-6">
+              {searchTerm || statusFilter !== "all"
+                ? "Try adjusting your search or filters"
+                : "No users created any projects"}
+            </p>
+          </div>
+        </>) 
+        : 
+        (<>
+        {/* Projects content */}
       <div>
         {viewMode === "cards" && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -233,6 +249,8 @@ const Projects = ({ projects, setProjects }) => {
           />
         )}
       </div>
+        </>)
+      }
 
       <UpdateProjectModal
         isOpen={showUpdateModal}

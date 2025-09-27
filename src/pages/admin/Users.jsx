@@ -47,7 +47,6 @@ const Users = ({ users, setUsers }) => {
         );
       
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }

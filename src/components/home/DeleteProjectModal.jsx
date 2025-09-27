@@ -22,18 +22,11 @@ const DeleteProjectModal = ({ isOpen, onClose, onDeleteProject, project }) => {
       await onDeleteProject(project.id, remark); // ✅ pass remarks
       handleClose();
     } catch (error) {
-      console.log(error);
       setError(error.message);
     } finally {
       setIsSubmitting(false);
     }
   };
-
-  useEffect(() => {
-    if(isOpen) {
-        console.log('PROJECT:', project)
-    }
-  }, [isOpen]);
 
   if (!isOpen) return null; // ✅ only render if open
 

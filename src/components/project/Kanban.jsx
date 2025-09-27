@@ -43,7 +43,7 @@ const Kanban = ({ tasks, setTasks, projectId }) => {
     const taskId = parseInt(active.id);
     const newStatus = over.id;
 
-    console.log(over)
+    // console.log(over)
 
     //Prepare updated tasks outside setTasks
     let updatedTasks;

@@ -33,12 +33,10 @@ const Home = () => {
       setLoading(true);
       const memberData = await userService.getUser();
       const projectsData = await projectsService.getAllProjectsByUser();
-      console.log(memberData);
 
       setMember(memberData.data);
       setProjects(projectsData.data || []);
     } catch (error) {
-      console.log(error);
       setError(error);
     } finally {
       setLoading(false);
@@ -48,11 +46,9 @@ const Home = () => {
   const handleCreateProject = async (name, description) => {
     try {
       const data = await projectsService.createProject(name, description);
-      console.log(data.project);
 
       setProjects([...projects, data.project]);
     } catch (error) {
-      console.log(error);
       throw error;
     }
   };
@@ -79,7 +75,6 @@ const Home = () => {
       );
 
       const newProject = data.project;
-      console.log(data.project);
 
       setProjects((prev) =>
         prev.map((project) =>
@@ -87,8 +82,6 @@ const Home = () => {
         )
       );
     } catch (error) {
-      console.log(error);
-
       throw error;
     }
   };
@@ -101,11 +94,9 @@ const Home = () => {
   const handleSoftDelete = async (projectId, remark) => {
     try {
       const data = await projectsService.deleteProject(projectId, remark);
-      console.log(data);
 
       setProjects((prev) => prev.filter((project) => project.id !== projectId));
     } catch (error) {
-      console.log(error);
       throw error;
     }
   };

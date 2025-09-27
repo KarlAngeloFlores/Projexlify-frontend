@@ -34,12 +34,6 @@ const DeleteUserModal = ({ isOpen, onClose, onDeleteUser, user }) => {
     }
   };
 
-  useEffect(() => {
-    if (isOpen) {
-      console.log('USER:', user);
-    }
-  }, [isOpen]);
-
   if (!isOpen) return null;
 
   return (

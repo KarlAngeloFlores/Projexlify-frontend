@@ -22,18 +22,11 @@ const DeleteTaskModal = ({ isOpen, onClose, onDeleteTask, task }) => {
       await onDeleteTask(task.id, remark);
       handleClose();
     } catch (error) {
-      console.log(error.message);
       setError(error.message);
     } finally {
       setIsSubmitting(false);
     }
   };
-
-  useEffect(() => {
-    if (isOpen) {
-      console.log("TASK:", task);
-    }
-  }, [isOpen, task]);
 
   if (!isOpen) return null; // ✅ only render if open
 

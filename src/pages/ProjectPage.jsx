@@ -71,7 +71,6 @@ const ProjectPage = () => {
       );
       setProject(data.project);
     } catch (error) {
-      console.log(error);
       throw error;
     }
   };
@@ -80,7 +79,6 @@ const ProjectPage = () => {
     try {
       setLoading(true);
       const data = await tasksService.getAllTasks(projectId);
-      console.log(data);
       const project = await projectsService.getProject(projectId);
       const memberData = await userService.getUser();
       
@@ -91,7 +89,6 @@ const ProjectPage = () => {
         setLoading(false);
       }, 1000);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };
@@ -101,7 +98,6 @@ const ProjectPage = () => {
       const data = await tasksService.createTask(projectId, name, status, contents);
       setTasks(prev => [...prev, data.task]);
     } catch (error) {
-      console.log(error);
       throw error;
     }
   };
@@ -116,7 +112,6 @@ const ProjectPage = () => {
       const data = await tasksService.updateTask(projectId, taskId, name, contents, newStatus, remark);
       setTasks((prev) => prev.map((task) => task.id === taskId ? { ...task, ...data.updated_task } : task));
     } catch (error) {
-      console.log(error);
       throw error;
     }
   };
@@ -136,7 +131,6 @@ const ProjectPage = () => {
       await tasksService.deleteTask(taskId, projectId, remark);
       setTasks((prev) => prev.filter((task) => task.id !== taskId));
     } catch (error) {
-      console.log(error);
       throw error;
     }
   };

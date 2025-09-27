@@ -39,7 +39,6 @@ const ChangePage = () => {
         form.oldPassword,
         form.newPassword
       );
-      console.log(result);
 
       setForm((prev) => ({
         ...prev,
@@ -54,7 +53,6 @@ const ChangePage = () => {
         navigate("/auth");
       }, 1000);
     } catch (error) {
-      console.log(error);
       setForm((prev) => ({
         ...prev,
         error: error.message || "Something went wrong. Please try again.",

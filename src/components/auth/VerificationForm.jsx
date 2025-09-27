@@ -29,7 +29,9 @@ const VerificationForm = ({ type, handleVerification, email }) => {
         purpose[type].purpose
       );
     } catch (error) {
-      console.log(error);
+      setError(
+        error.message || "Something went wrong. Please try again later."
+      );
     }
   };
 

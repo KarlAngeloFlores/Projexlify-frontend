@@ -16,7 +16,6 @@ const AuthPage = () => {
     const handleVerification = async (code) => {
         try {
           const result = await authService.registerAndVerify(token, password, code);
-          console.log(result);
         } catch (error) {
           throw error;
         }

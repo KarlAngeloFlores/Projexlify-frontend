@@ -14,7 +14,6 @@ const ForgotPage = () => {
     try {
       setEmail(email);
       const data = await authService.forgotPassword(email);
-      console.log(data);
       setCurrentAuth('verification');
     } catch (error) {
       throw error;
