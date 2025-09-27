@@ -87,15 +87,18 @@ const handleCodeChange = (e) => {
               </span>
             </div>
 
-            {/* Title & Description */}
-            <div className="text-center mb-4">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-                {purpose[type].title}
-              </h2>
-              <p className="text-gray-600 dark:text-gray-400">
-                Enter the verification code sent to your email
-              </p>
-            </div>
+{/* Title & Description */}
+<div className="text-center mb-4">
+  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+    {purpose[type].title}
+  </h2>
+  <p className="text-gray-600 dark:text-gray-400">
+    Enter the verification code sent to your email
+  </p>
+  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+    Didn’t see it? Check your <span className="font-medium">Spam</span> or <span className="font-medium">Junk</span> folder.
+  </p>
+</div>
 
             {/* Form */}
             <form className="space-y-3" onSubmit={onSubmit}>
