@@ -11,28 +11,28 @@ import KanbanColumn from "../../components/project/KanbanColumn";
 import tasksService from "../../services/tasks";
 
 const Kanban = ({ tasks, setTasks, projectId }) => {
-  // Enhanced sensors for better mobile experience
+  //enhanced sensors for better mobile experience
   const sensors = useSensors(
-    // Mouse/pointer sensor with higher activation distance for better precision
+    //mouse/pointer sensor with higher activation distance for better precision
     useSensor(PointerSensor, {
       activationConstraint: {
         distance: 8, // 8px tolerance before drag starts
       },
     }),
-    // Touch sensor optimized for mobile
+    //touch sensor optimized for mobile
     useSensor(TouchSensor, {
       activationConstraint: {
-        delay: 100, // 100ms delay to distinguish from scrolling
-        tolerance: 8, // 8px tolerance for finger movement
+        delay: 100, //100ms delay to remove from scrolling
+        tolerance: 8, //8px tolerance for finger movement
       },
     })
   );
 
   const syncPositionStatus = async (tasks, taskId, newStatus) => {
     try {
-      const result = await tasksService.syncPositionStatus(tasks, taskId, newStatus, projectId);
+      await tasksService.syncPositionStatus(tasks, taskId, newStatus, projectId);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -54,7 +54,7 @@ const Kanban = ({ tasks, setTasks, projectId }) => {
     setTasks((prevTasks) => {
       const currentTask = prevTasks.find((t) => t.id === taskId);
 
-      // 🚨 Early exit if status didn't change
+      //
       if (currentTask.status === newStatus) {
         return prevTasks;
       }
@@ -77,10 +77,6 @@ const Kanban = ({ tasks, setTasks, projectId }) => {
 
     //API call OUTSIDE setTasks -> avoids double call of api
     if (changedTask) {
-      // console.log("PROJECTID:", projectId);
-      // console.log("Changed task:", changedTask);
-      // console.log(withPositions);
-
       await syncPositionStatus(withPositions, changedTask.id, changedTask.status);
     }
   };
@@ -94,11 +90,11 @@ const Kanban = ({ tasks, setTasks, projectId }) => {
       <div 
         className="grid md:grid-cols-3 grid-cols-1 gap-3 md:gap-4 p-3 md:p-0"
         style={{
-          // Prevent bounce scrolling on iOS
+          //prevent bounce scrolling on iOS
           WebkitOverflowScrolling: 'touch',
           overscrollBehaviorY: 'none',
           touchAction: 'pan-y',
-          // Smooth scrolling for better mobile experience
+          //smooth scrolling for better mobile experience
           scrollBehavior: 'smooth',
         }}
       >

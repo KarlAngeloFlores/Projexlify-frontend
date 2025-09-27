@@ -7,7 +7,7 @@ const KanbanColumn = ({ id, title, tasks }) => {
 
 const getColumnStyle = () => {
   const baseStyles =
-    "flex flex-col rounded-2xl p-4 shadow-xl border w-full backdrop-blur-sm";
+    "flex flex-col rounded-xl p-4 shadow-xl border w-full backdrop-blur-sm";
 
   switch (title) {
     case "To Do":
@@ -36,7 +36,7 @@ const getHeaderColor = () => {
 
 const getDropZoneStyle = () => {
   const baseStyle =
-    "flex-1 space-y-3 rounded-xl p-3 transition-all duration-100 flex flex-col gap-2";
+    "flex-1 space-y-3 rounded-xl p-0.5 transition-all duration-100 flex flex-col gap-2";
 
   if (!isOver) return baseStyle;
 

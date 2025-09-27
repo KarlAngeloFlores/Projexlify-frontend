@@ -7,7 +7,7 @@ const KanbanTask = ({ task }) => {
     id: String(task.id),
   });
 
-  // Enhanced mobile-optimized styling
+  //mobile optimized
   const style = {
     transform: transform
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
@@ -15,17 +15,15 @@ const KanbanTask = ({ task }) => {
     transition: isDragging ? "none" : "transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
     willChange: "transform",
     zIndex: isDragging ? 9999 : "auto",
-    // Mobile optimizations
-    touchAction: "none", // Prevents scrolling while dragging
+    touchAction: "none", //prevents scrolling while dragging
     userSelect: "none",
     WebkitUserSelect: "none",
-    // Enhanced visual feedback for dragging
+    //enhanced visual feedback for dragging
     opacity: isDragging ? 0.8 : 1,
     scale: isDragging ? 1.05 : 1,
     filter: isDragging ? "drop-shadow(0 25px 25px rgb(0 0 0 / 0.15))" : "none",
   };
 
-  // Get status-based styling with enhanced mobile touch targets
   const getTaskStyling = () => {
     const baseClasses = "relative p-4 rounded-xl shadow-lg border cursor-grab hover:shadow-xl group mb-4 select-none touch-none";
     
@@ -99,11 +97,11 @@ const KanbanTask = ({ task }) => {
       )}
 
       {/* Task Footer */}
-      <div className={`flex items-center justify-between text-xs mt-4 pt-3 border-t ${getBorderColor()}`}>
+      <div className={`flex items-center justify-between text-xs mt-4 pt-3 border-t ${getBorderColor()} overflow-hidden`}>
         {/* Created Date */}
         <div className="flex items-center opacity-60">
           <Calendar size={12} className="mr-1 flex-shrink-0" />
-          <span className="truncate">Created {util.formatDateComplete(task.created_at)}</span>
+          <span className="truncate whitespace-break-spaces">Created {util.formatDateComplete(task.created_at)}</span>
         </div>
       </div>
 
