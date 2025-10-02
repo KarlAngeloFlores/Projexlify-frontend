@@ -19,7 +19,7 @@ const DeleteProjectModal = ({ isOpen, onClose, onDeleteProject, project }) => {
   const handleSubmit = async () => {
     try {
       setIsSubmitting(true);
-      await onDeleteProject(project.id, remark); // ✅ pass remarks
+      await onDeleteProject(project.id, remark); 
       handleClose();
     } catch (error) {
       setError(error.message);
@@ -28,7 +28,7 @@ const DeleteProjectModal = ({ isOpen, onClose, onDeleteProject, project }) => {
     }
   };
 
-  if (!isOpen) return null; // ✅ only render if open
+  if (!isOpen) return null; 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">

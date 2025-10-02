@@ -62,6 +62,7 @@ const LoginForm = ({setCurrentAuth}) => {
   return (
     <section className='h-screen bg-gray-100 dark:bg-gray-950'>
         <div className='max-w-7xl mx-auto w-full h-full flex items-center justify-center px-4'>
+        
           <div className="w-full max-w-md modal-animation">
             <div className="bg-white/90 dark:bg-gray-800/50 backdrop-blur-md rounded-2xl border border-gray-200 dark:border-gray-700 p-8 shadow-2xl">
               {/* Logo */}

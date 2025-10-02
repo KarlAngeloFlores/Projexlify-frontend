@@ -28,7 +28,7 @@ const DeleteTaskModal = ({ isOpen, onClose, onDeleteTask, task }) => {
     }
   };
 
-  if (!isOpen) return null; // ✅ only render if open
+  if (!isOpen) return null; 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
