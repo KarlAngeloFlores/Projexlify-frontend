@@ -2,9 +2,9 @@ import api from "./api";
 
 const authService = {
     
-    register: async (username, email) => {
+    register: async (username, email, password) => {
         try {
-            const { data } = await api.post('/auth/register', { username, email });
+            const { data } = await api.post('/auth/register', { username, email, password });
             return data;
         } catch (error) {
             // Axios error response

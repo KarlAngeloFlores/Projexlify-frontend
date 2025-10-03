@@ -35,7 +35,7 @@ const RegisterForm = ({ setCurrentAuth, setEmail, setPassword, setToken }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const result = await authService.register(creds.username, creds.email);
+      const result = await authService.register(creds.username, creds.email, creds.password);
 
       setEmail(creds.email);
       setPassword(creds.password);
