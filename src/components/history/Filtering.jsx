@@ -19,7 +19,7 @@ const Filtering = ({ searchTerm, setSearchTerm, statusFilter, setStatusFilter })
       <div className="flex items-center gap-2">
         <Filter className="w-5 h-5 text-gray-500 dark:text-gray-400 shrink-0" />
         <select
-          className="flex-1 sm:w-auto bg-white dark:bg-gray-800/50 border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm"
+          className="flex-1 sm:w-auto bg-white dark:bg-gray-800/50 border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm cursor-pointer"
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
         >

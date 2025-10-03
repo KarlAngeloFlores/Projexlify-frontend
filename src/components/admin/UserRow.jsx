@@ -35,13 +35,13 @@ const UserRow = ({ user, handleOpenUpdate, handleOpenDelete }) => {
         <div className="flex gap-2">
           <button
             onClick={() => handleOpenUpdate(user)}
-            className="flex items-center gap-1 px-3 py-1 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+            className="flex items-center gap-1 px-3 py-1 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors cursor-pointer"
           >
             <Pencil className="w-4 h-4" /> Edit
           </button>
           <button
             onClick={() => handleOpenDelete(user)}
-            className="flex items-center gap-1 px-3 py-1 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-600/30 rounded transition-colors"
+            className="flex items-center gap-1 px-3 py-1 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-600/30 rounded transition-colors cursor-pointer"
           >
             <Trash2 className="w-4 h-4" /> Delete
           </button>

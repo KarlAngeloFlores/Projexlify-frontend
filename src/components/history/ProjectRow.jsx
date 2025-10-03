@@ -63,7 +63,7 @@ const ProjectRow = ({ item, handleOpenView }) => {
                     
             <button
             onClick={() => handleOpenView(item)}
-            className="flex items-center gap-1 px-3 py-1 text-sm text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-red-green/30 rounded transition-colors"
+            className="flex items-center gap-1 px-3 py-1 text-sm text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-red-green/30 rounded transition-colors cursor-pointer"
           >
             <Eye className="w-4 h-4" /> View
           </button>

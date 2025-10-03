@@ -147,7 +147,7 @@ const ChangePage = () => {
             <button
               type="submit"
               disabled={form.loading}
-              className="w-full flex justify-center items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white dark:text-white py-3 px-4 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all transform hover:scale-[1.02]"
+              className="w-full flex justify-center items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white dark:text-white py-3 px-4 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all transform hover:scale-[1.02] cursor-pointer"
             >
               {getButtonContent()}
             </button>

@@ -70,7 +70,7 @@ const ProjectRow = ({ project, handleOpenUpdate, handleOpenDelete }) => {
             className={`flex items-center gap-1 px-3 py-1 text-sm rounded transition-colors ${
               isDeleted
                 ? "text-gray-400 dark:text-gray-500 cursor-not-allowed"
-                : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
             }`}
           >
             <Pencil className="w-4 h-4" /> Edit
@@ -82,7 +82,7 @@ const ProjectRow = ({ project, handleOpenUpdate, handleOpenDelete }) => {
             className={`flex items-center gap-1 px-3 py-1 text-sm rounded transition-colors ${
               isDeleted
                 ? "text-gray-400 dark:text-gray-500 cursor-not-allowed"
-                : "text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-600/30"
+                : "text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-600/30 cursor-pointer"
             }`}
           >
             <Trash2 className="w-4 h-4" /> Delete
@@ -94,7 +94,7 @@ const ProjectRow = ({ project, handleOpenUpdate, handleOpenDelete }) => {
             className={`flex items-center gap-1 px-3 py-1 text-sm rounded transition-colors ${
               isDeleted
                 ? "text-gray-400 dark:text-gray-500 cursor-not-allowed"
-                : "text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-600/30"
+                : "text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-600/30 cursor-pointer"
             }`}
           >
             <History className="w-4 h-4" /> History

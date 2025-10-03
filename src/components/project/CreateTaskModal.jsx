@@ -110,7 +110,7 @@ const CreateTaskModal = ({ isOpen, onClose, onCreateTask }) => {
           <button
             onClick={handleClose}
             disabled={isSubmitting}
-            className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors disabled:opacity-50"
+            className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors disabled:opacity-50 cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -156,7 +156,7 @@ const CreateTaskModal = ({ isOpen, onClose, onCreateTask }) => {
                 value={formData.status}
                 onChange={handleInfoChange}
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 transition-all border-gray-300 dark:border-gray-600 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 transition-all border-gray-300 dark:border-gray-600 focus:ring-blue-500 focus:border-transparent cursor-pointer"
               >
                 <option value="todo">To Do</option>
                 <option value="in_progress">In Progress</option>

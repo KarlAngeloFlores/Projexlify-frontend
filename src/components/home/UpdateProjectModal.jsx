@@ -107,7 +107,7 @@ const UpdateProjectModal = ({ isOpen, onClose, onUpdateProject, project }) => {
           <button
             onClick={handleClose}
             disabled={isSubmitting}
-            className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors disabled:opacity-50"
+            className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors disabled:opacity-50 cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -150,7 +150,7 @@ const UpdateProjectModal = ({ isOpen, onClose, onUpdateProject, project }) => {
                   value={formData.newStatus}
                   onChange={handleInfoChange}
                   disabled={isSubmitting}
-                  className={`w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all`}
+                  className={`w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all cursor-pointer`}
                 >
                   <option value="planned">Planned</option>
                   <option value="active">Active</option>

@@ -32,7 +32,7 @@ const Logout = ({ user }) => {
             {user ? user.username : "User"}
           </span>
           <ChevronDown
-            className={`${open ? "rotate-180" : ""} w-4 h-4 transition-all text-gray-600 dark:text-gray-300`}
+            className={`${open ? "rotate-180" : ""} w-4 h-4 transition-all text-gray-600 dark:text-gray-300 hover:bg-gray-200 rounded-full`}
           />
         </div>
         <ThemeToggle />
@@ -40,17 +40,17 @@ const Logout = ({ user }) => {
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-lg shadow-lg p-2 border border-gray-200 dark:border-gray-700">
+        <div className="absolute right-0 mt-2 w-auto bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-lg shadow-lg p-2 border border-gray-200 dark:border-gray-700">
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 w-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            className="flex items-center gap-2 w-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
             Logout
           </button>
           <button
             onClick={handleChangePassword}
-            className="flex items-center gap-2 w-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors text-nowrap"
+            className="flex items-center gap-2 w-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors text-nowrap cursor-pointer"
           >
             <Lock className="w-4 h-4" />
             Change password

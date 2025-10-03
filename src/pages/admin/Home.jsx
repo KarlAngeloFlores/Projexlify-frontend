@@ -40,7 +40,7 @@ const Home = () => {
   }
 
   const getButtonTabStyle = (tab) =>
-    `flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+    `flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors cursor-pointer ${
       activeTab === tab
         ? "border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400"
         : "border-transparent text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"

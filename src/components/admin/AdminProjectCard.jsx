@@ -42,21 +42,21 @@ const AdminProjectCard = ({
       key={project.id}
       className={`group bg-white/80 dark:bg-gray-800/50 backdrop-blur-md rounded-xl border relative shadow-md transition-all overflow-hidden
         ${isDeleted 
-          ? "border-red-400 dark:border-red-600 opacity-80" 
-          : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:scale-[1.02]"}
+          ? "border-red-400 dark:border-red-600 opacity-80 cursor-not-allowed" 
+          : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:scale-[1.02] cursor-pointer"}
       `}
     >
       {/* Project Header */}
       <div className="p-6">
         <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center" onClick={!isDeleted ? navigateProject : undefined}>
-            <div className={`w-10 h-10 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform cursor-pointer
-              ${isDeleted ? "bg-gray-400" : "bg-gradient-to-br from-blue-500 to-purple-600"}
+          <div className={`flex items-center ${isDeleted ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={!isDeleted ? navigateProject : undefined}>
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform
+              ${isDeleted ? "bg-gray-400 cursor-not-allowed" : "bg-gradient-to-br from-blue-500 to-purple-600 cursor-pointer"}
             `}>
               <FolderOpen className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 className=" font-semibold text-gray-900 dark:text-white text-lg group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors truncate max-w-[240px] cursor-pointer">
+              <h3 className={`${isDeleted ? 'cursor-not-allowed' : 'cursor-pointer'} font-semibold text-gray-900 dark:text-white text-lg group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors truncate max-w-[240px]`}>
                 {project.name}
               </h3>
               <StatusProject status={project.status} />
@@ -67,7 +67,7 @@ const AdminProjectCard = ({
           <div className="relative" ref={menuRef}>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="transition-opacity p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+              className="transition-opacity p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer"
             >
               <MoreHorizontal className="w-5 h-5 text-gray-500 dark:text-gray-400" />
             </button>
@@ -81,7 +81,7 @@ const AdminProjectCard = ({
                         handleRestore(project.id);
                         setMenuOpen(false);
                       }}
-                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-green-600 dark:text-green-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-t-lg"
+                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-green-600 dark:text-green-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-t-lg cursor-pointer"
                     >
                       <RotateCcw className="w-4 h-4" /> Restore
                     </button>
@@ -90,7 +90,7 @@ const AdminProjectCard = ({
                         handleHardDelete(project.id);
                         setMenuOpen(false);
                       }}
-                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-600/30 rounded-b-lg text-left"
+                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-600/30 rounded-b-lg text-left cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" /> Delete Permanently
                     </button>
@@ -102,7 +102,7 @@ const AdminProjectCard = ({
                         handleOpenUpdate(project);
                         setMenuOpen(false);
                       }}
-                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-t-lg"
+                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-t-lg cursor-pointer"
                     >
                       <Pencil className="w-4 h-4" /> Edit
                     </button>
@@ -111,7 +111,7 @@ const AdminProjectCard = ({
                         handleOpenDelete(project);
                         setMenuOpen(false);
                       }}
-                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-600/30 rounded-b-lg"
+                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-600/30 rounded-b-lg cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" /> Delete
                     </button>
@@ -153,7 +153,7 @@ const AdminProjectCard = ({
               className={`text-sm font-medium transition-colors ${
                 isDeleted
                   ? "text-gray-400 cursor-not-allowed"
-                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white cursor-pointer"
               }`}
               disabled={isDeleted}
             >
@@ -164,7 +164,7 @@ const AdminProjectCard = ({
               className={`text-sm font-medium transition-colors ${
                 isDeleted
                   ? "text-gray-400 cursor-not-allowed"
-                  : "text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+                  : "text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 cursor-pointer"
               }`}
               disabled={isDeleted}
             >

@@ -64,19 +64,19 @@ const TaskRow = ({ task, index, handleOpenUpdate, handleOpenDelete, handleOpenVi
         <div className="flex items-center justify-end gap-2">
           <button
             onClick={() => handleOpenUpdate(task)}
-            className="flex items-center gap-1 px-3 py-1 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+            className="flex items-center gap-1 px-3 py-1 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors cursor-pointer"
           >
             <Edit className="w-4 h-4" /> Edit
           </button>
           <button
             onClick={() => handleOpenDelete(task)}
-            className="flex items-center gap-1 px-3 py-1 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-600/30 rounded transition-colors"
+            className="flex items-center gap-1 px-3 py-1 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-600/30 rounded transition-colors cursor-pointer"
           >
             <Trash2 className="w-4 h-4" /> Delete
           </button>
                     <button
             onClick={() => handleOpenView(task)}
-            className="flex items-center gap-1 px-3 py-1 text-sm text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-red-green/30 rounded transition-colors"
+            className="flex items-center gap-1 px-3 py-1 text-sm text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-red-green/30 rounded transition-colors cursor-pointer"
           >
             <Eye className="w-4 h-4" /> View
           </button>
