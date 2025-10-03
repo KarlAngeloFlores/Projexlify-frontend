@@ -1,8 +1,7 @@
-import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import authService from "../../services/auth";
-
+import LoadingScreen from "../LoadingScreen";
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // null = loading
@@ -12,6 +11,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 
   useEffect(() => {
     const checkAuth = async () => {
+      setLoading(true);
       try {
         const data = await authService.verify();
         setUserRole(data.role);
@@ -28,9 +28,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 
   if (loading) 
     return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <Loader2 size={32} className="text-white" />
-      </div>
+      <LoadingScreen message="Loading data..." />
     );
 
   if (!isAuthenticated) return <Navigate to="/auth" replace />;

@@ -76,6 +76,13 @@ const EmailForm = ({ handleEmail }) => {
                   id="email"
                   name="email"
                   value={email}
+                  onKeyDown={(e) => {
+                    if (e.key === " ") e.preventDefault(); // prevent space key
+                  }}
+                  onPaste={(e) => {
+                    const paste = e.clipboardData.getData("text");
+                    if (paste.includes(" ")) e.preventDefault();
+                  }}
                   onChange={handleEmailChange}
                   required
                   maxLength={100}

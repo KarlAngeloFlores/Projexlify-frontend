@@ -102,6 +102,13 @@ const RegisterForm = ({ setCurrentAuth, setEmail, setPassword, setToken }) => {
                   name="username"
                   value={creds.username}
                   maxLength={100}
+                  onKeyDown={(e) => {
+                    if (e.key === " ") e.preventDefault(); // prevent space key
+                  }}
+                  onPaste={(e) => {
+                    const paste = e.clipboardData.getData("text");
+                    if (paste.includes(" ")) e.preventDefault();
+                  }}
                   onChange={handleCredsChange}
                   required
                   className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
@@ -122,6 +129,13 @@ const RegisterForm = ({ setCurrentAuth, setEmail, setPassword, setToken }) => {
                   name="email"
                   maxLength={100}
                   value={creds.email}
+                  onKeyDown={(e) => {
+                    if (e.key === " ") e.preventDefault(); // prevent space key
+                  }}
+                  onPaste={(e) => {
+                    const paste = e.clipboardData.getData("text");
+                    if (paste.includes(" ")) e.preventDefault();
+                  }}
                   onChange={handleCredsChange}
                   required
                   className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
@@ -141,6 +155,13 @@ const RegisterForm = ({ setCurrentAuth, setEmail, setPassword, setToken }) => {
                   id="password"
                   name="password"
                   value={creds.password}
+                  onKeyDown={(e) => {
+                    if (e.key === " ") e.preventDefault(); // prevent space key
+                  }}
+                  onPaste={(e) => {
+                    const paste = e.clipboardData.getData("text");
+                    if (paste.includes(" ")) e.preventDefault();
+                  }}
                   onChange={handleCredsChange}
                   maxLength={100}
                   required
@@ -153,8 +174,7 @@ const RegisterForm = ({ setCurrentAuth, setEmail, setPassword, setToken }) => {
               {error && (
                 <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 rounded-lg">
                   <div className="flex items-center text-sm text-red-700 dark:text-red-400">
-                    <CircleX size={18} className="mr-2 flex-shrink-0" />{" "}
-                    {error}
+                    <CircleX size={18} className="mr-2 flex-shrink-0" /> {error}
                   </div>
                 </div>
               )}

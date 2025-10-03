@@ -16,7 +16,6 @@ const ProjectRoute = ({ children }) => {
             try {
                 
                 const result = await authService.checkAccess(projectId);
-                // console.log(result);
                 setAuthorized(true);
 
             } catch (error) {

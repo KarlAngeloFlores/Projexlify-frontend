@@ -47,17 +47,30 @@ const LoginForm = ({setCurrentAuth}) => {
       return 'Login';
     };
 
-    const handleCredsChange = (e) => {
-      const { name, value } = e.target;
-      
-      setCreds(prev => ({
-        ...prev,
-        [name]: value
-      }));
-      
-      setError('');
-      setSuccessMessage('');
-    }
+const handleCredsChange = (e) => {
+  const { name, value } = e.target;
+
+  // Remove all spaces from the input (extra safety)
+  const sanitizedValue = value.replace(/\s/g, '');
+
+  setCreds(prev => ({
+    ...prev,
+    [name]: sanitizedValue
+  }));
+
+  setError('');
+  setSuccessMessage('');
+};
+
+// In your input element:
+<input
+  name="username"
+  value={creds.username}
+  onChange={handleCredsChange}
+  onKeyDown={(e) => {
+    if (e.key === ' ') e.preventDefault(); // prevent space key
+  }}
+/>
 
   return (
     <section className='h-screen bg-gray-100 dark:bg-gray-950'>
@@ -94,6 +107,13 @@ const LoginForm = ({setCurrentAuth}) => {
                     name="email"
                     value={creds.email}
                     onChange={handleCredsChange}
+                  onKeyDown={(e) => {
+                  if (e.key === ' ') e.preventDefault(); // prevent space key
+                  }}
+                  onPaste={(e) => {
+                      const paste = e.clipboardData.getData('text');
+                      if (paste.includes(' ')) e.preventDefault();
+                  }}
                     maxLength={100}
                     required
                     className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
@@ -109,6 +129,13 @@ const LoginForm = ({setCurrentAuth}) => {
                     type="password"
                     id="password"
                     name="password"
+                  onKeyDown={(e) => {
+                  if (e.key === ' ') e.preventDefault(); // prevent space key
+                  }}
+                  onPaste={(e) => {
+                      const paste = e.clipboardData.getData('text');
+                      if (paste.includes(' ')) e.preventDefault();
+                  }}
                     maxLength={100}
                     value={creds.password}
                     onChange={handleCredsChange}

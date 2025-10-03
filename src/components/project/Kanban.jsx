@@ -5,12 +5,23 @@ import {
   TouchSensor,
   useSensor,
   useSensors,
+  DragOverlay
 } from "@dnd-kit/core";
-
 import KanbanColumn from "../../components/project/KanbanColumn";
 import tasksService from "../../services/tasks";
+import KanbanTask from "./KanbanTask";
+import { useState } from "react";
 
 const Kanban = ({ tasks, setTasks, projectId }) => {
+    const [activeTask, setActiveTask] = useState(null);
+
+  const handleDragStart = (event) => {
+    const { active } = event;
+    const taskId = parseInt(active.id);
+    const task = tasks.find((t) => t.id === taskId);
+    setActiveTask(task);
+  };
+
   //enhanced sensors for better mobile experience
   const sensors = useSensors(
     //mouse/pointer sensor with higher activation distance for better precision
@@ -43,9 +54,6 @@ const Kanban = ({ tasks, setTasks, projectId }) => {
     const taskId = parseInt(active.id);
     const newStatus = over.id;
 
-    // console.log(over)
-
-    //Prepare updated tasks outside setTasks
     let updatedTasks;
     let withPositions;
     let changedTask;
@@ -75,17 +83,22 @@ const Kanban = ({ tasks, setTasks, projectId }) => {
       return withPositions;
     });
 
-    //API call OUTSIDE setTasks -> avoids double call of api
     if (changedTask) {
       await syncPositionStatus(withPositions, changedTask.id, changedTask.status);
     }
+  };
+
+  const handleDragCancel = () => {
+    setActiveTask(null);
   };
 
   return (
     <DndContext 
       sensors={sensors}
       collisionDetection={closestCenter} 
+      onDragStart={handleDragStart} //newly added
       onDragEnd={handleDragEnd}
+      onDragCancel={handleDragCancel} //newly added
     >
       <div 
         className="grid md:grid-cols-3 grid-cols-1 gap-3 md:gap-4 p-3 md:p-0"
@@ -117,7 +130,14 @@ const Kanban = ({ tasks, setTasks, projectId }) => {
           color="#22c55e"
         />
       </div>
+
+      {/**to make sure that the task is in front */}
+      <DragOverlay>
+        {activeTask ? <KanbanTask task={activeTask} /> : null}
+      </DragOverlay>
     </DndContext>
+
+    
   );
 }
 

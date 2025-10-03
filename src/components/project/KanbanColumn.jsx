@@ -55,7 +55,7 @@ const getDropZoneStyle = () => {
   return (
     <div
       ref={setNodeRef}
-      className={getColumnStyle()}
+      className={`${getColumnStyle()}`}
     >
 
       <div className="flex items-center justify-between mb-4">

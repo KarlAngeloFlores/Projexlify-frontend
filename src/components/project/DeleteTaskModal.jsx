@@ -95,9 +95,9 @@ const DeleteTaskModal = ({ isOpen, onClose, onDeleteTask, task }) => {
             onClick={handleSubmit}
             disabled={isSubmitting}
             loading={isSubmitting}
-            loadingText="Deleting..."
+            
           >
-            Delete
+            {isSubmitting ? 'Deleting...' : 'Delete'}
           </Button>
         </div>
       </div>

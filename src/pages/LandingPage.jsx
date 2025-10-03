@@ -25,7 +25,7 @@ const LandingPage = () => {
   ]
 
   return (
-    <div className="bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-white">
+    <div className="bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-white min-h-screen">
 
       {/* Navigation */}  
       <NavHeader />

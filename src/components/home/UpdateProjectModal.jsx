@@ -226,17 +226,8 @@ const UpdateProjectModal = ({ isOpen, onClose, onUpdateProject, project }) => {
                   !formData.description.trim()
                 }
               >
-                {isSubmitting ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                    Updating...
-                  </>
-                ) : (
-                  <>
                     <CheckCircle className="w-4 h-4 mr-2" />
-                    Update Project
-                  </>
-                )}
+                    {isSubmitting ? 'Updating...' : 'Update Project'}
               </Button>
             </div>
           </div>

@@ -8,21 +8,18 @@ const KanbanTask = ({ task }) => {
   });
 
   //mobile optimized
-  const style = {
-    transform: transform
-      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
-      : undefined,
-    transition: isDragging ? "none" : "transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-    willChange: "transform",
-    zIndex: isDragging ? 9999 : "auto",
-    touchAction: "none", //prevents scrolling while dragging
-    userSelect: "none",
-    WebkitUserSelect: "none",
-    //enhanced visual feedback for dragging
-    opacity: isDragging ? 0.8 : 1,
-    scale: isDragging ? 1.05 : 1,
-    filter: isDragging ? "drop-shadow(0 25px 25px rgb(0 0 0 / 0.15))" : "none",
-  };
+const style = {
+  transform: transform
+    ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+    : undefined,
+  willChange: "transform",
+  touchAction: "none",
+  userSelect: "none",
+  WebkitUserSelect: "none",
+  //hide the original
+  opacity: isDragging ? 0 : 1,
+
+};
 
   const getTaskStyling = () => {
     const baseClasses = "relative p-4 rounded-xl shadow-lg border cursor-grab hover:shadow-xl group mb-4 select-none touch-none";
@@ -65,7 +62,7 @@ const KanbanTask = ({ task }) => {
       style={style}
       {...listeners}
       {...attributes}
-      className={`${getTaskStyling()} ${isDragging ? 'z-[9999] cursor-grabbing' : ''}`}
+      className={`${getTaskStyling()} ${isDragging ? 'cursor-grabbing' : ''}`}
     > 
       
       {/* Enhanced Drag Handle - Always visible on mobile */}

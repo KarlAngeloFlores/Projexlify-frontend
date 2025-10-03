@@ -212,11 +212,10 @@ const CreateTaskModal = ({ isOpen, onClose, onCreateTask }) => {
               buttonType="normal"
               onClick={handleSubmit}
               loading={isSubmitting}
-              loadingText="Creating..."
-              disabled={!formData.name.trim() || !formData.contents.trim()}
+              disabled={isSubmitting || !formData.name.trim() || !formData.contents.trim()}
             >
               <CheckCircle className="w-4 h-4 mr-2" />
-              Create Task
+              { isSubmitting ? 'Creating...' : 'Create Task' }
             </Button>
           </div>
         </div>

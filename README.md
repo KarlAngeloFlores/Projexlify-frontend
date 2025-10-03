@@ -1,4 +1,4 @@
-# Projexlify - Project Management App
+# Projexlify - Project Management Web App
 > Frontend
 
 ## Deployment
@@ -13,21 +13,21 @@ This repository contains the **frontend** of the Projexlify - Project Management
 ## Tech Stack
 - **React (Vite)** – Frontend framework  
 - **React Router** – Client-side routing  
-- **Axios/Fetch** – API communication  
+- **Axios** – API communication  
 - **Tailwind CSS** – Styling  
-- **Lucide-react** – Icons  
+- **Lucide React** – Icons  
 - **dnd-kit** – Drag-and-drop functionality  
 - **JWT (via backend)** – Authentication
 
 ## Features
 - **Authentication**: Login & register with secure JWT-based sessions (via http cookies).
-- **Project Management**: Create, view, edit, delete, and manage tasks within project.
+- **Project Management**: Create, view, edit, delete, and manage tasks within projects.
 - **Task Management**: Add, update, delete, and track tasks inside projects.
 - **Admin Page**: Admin can manage all projects, tasks, logs, and users, bypassing normal access restrictions.
 - **Dark/Light Mode**: Toggle between dark and light themes for a personalized UI experience.
 - **Drag and Drop**: Change status interactively.
 - **Modern UI**: Built with Tailwind CSS + reusable components.
-- **Filtering & Pagination**: Easy tasks, projects, logs, and users browsing.
+- **Filtering & Pagination**: Easy browsing of tasks, projects, logs, and users.
 
 ## Installation & Setup local (development)
 > ⚠️ **Important:** For the frontend features to work properly, you must **run the backend server first**.  
@@ -44,7 +44,7 @@ This repository contains the **frontend** of the Projexlify - Project Management
 npm install
 ```
 
-### 3. Configure a .file in the project root
+### 3. Configure a .env (environment variables) in the project root
 #### Create a **.env** file in the project root:
 ```
 VITE_API_URL=http://localhost:5000

@@ -208,11 +208,11 @@ const CreateProjectModal = ({ isOpen, onClose, onCreateProject }) => {
               onClick={handleSubmit}
               type="submit"
               buttonType="normal"
+              disabled={isSubmitting}
               loading={isSubmitting}
-              loadingText="Creating..."
             >
               <CheckCircle className="w-4 h-4 mr-2" />
-              Create Project
+              { isSubmitting ? "Creating..." :  'Create Project'}
             </Button>
           </div>
         </div>

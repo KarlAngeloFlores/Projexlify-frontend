@@ -35,10 +35,7 @@ const ForgotForm = ({ handleForgotPassword }) => {
         success: "",
       }));
 
-      await handleForgotPassword(
-        password.newPassword,
-        password.repeatPassword
-      );
+      await handleForgotPassword(password.newPassword, password.repeatPassword);
 
       // ✅ show success message
       setPassword((prev) => ({
@@ -53,9 +50,7 @@ const ForgotForm = ({ handleForgotPassword }) => {
     } catch (error) {
       setPassword((prev) => ({
         ...prev,
-        error:
-          error.message ||
-          "Something went wrong. Please try again later.",
+        error: error.message || "Something went wrong. Please try again later.",
       }));
     } finally {
       setPassword((prev) => ({ ...prev, loading: false }));
@@ -113,6 +108,14 @@ const ForgotForm = ({ handleForgotPassword }) => {
                   name="newPassword"
                   required
                   maxLength={100}
+                  onKeyDown={(e) => {
+                    if (e.key === " ") e.preventDefault(); // prevent space key
+                  }}
+                  onPaste={(e) => {
+                    const paste = e.clipboardData.getData("text");
+
+                    if (paste.includes(" ")) e.preventDefault();
+                  }}
                   onChange={handlePassChange}
                   value={password.newPassword}
                   className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
@@ -132,6 +135,13 @@ const ForgotForm = ({ handleForgotPassword }) => {
                   id="repeatpassword"
                   name="repeatPassword"
                   value={password.repeatPassword}
+                  onKeyDown={(e) => {
+                    if (e.key === " ") e.preventDefault(); // prevent space key
+                  }}
+                  onPaste={(e) => {
+                    const paste = e.clipboardData.getData("text");
+                    if (paste.includes(" ")) e.preventDefault();
+                  }}
                   onChange={handlePassChange}
                   required
                   maxLength={100}
@@ -149,8 +159,7 @@ const ForgotForm = ({ handleForgotPassword }) => {
               )}
               {password.success && (
                 <div className="flex items-center text-green-600 dark:text-green-400 text-sm mt-2">
-                  <CheckCircle2 size={18} className="mr-1" />{" "}
-                  {password.success}
+                  <CheckCircle2 size={18} className="mr-1" /> {password.success}
                 </div>
               )}
 
