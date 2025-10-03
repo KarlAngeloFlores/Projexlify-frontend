@@ -21,7 +21,7 @@ const AuthPage = () => {
     }
 
   return (
-    <div className='dark:bg-gray-950 bg-gray-100  text-white bg-gray-9'>
+    <div className='dark:bg-gray-950 bg-gray-100  text-white'>
         <NavHeader />
         <section className='h-screen'>
             {currentAuth === 'login' && <LoginForm setCurrentAuth={setCurrentAuth} /> }
