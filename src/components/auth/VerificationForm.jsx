@@ -20,18 +20,25 @@ const VerificationForm = ({ type, handleVerification, email }) => {
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendMessage, setResendMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
 
   const handleResendVerification = async () => {
     try {
-      await authService.resendVerificationCode(
-        email,
-        purpose[type].purpose
-      );
+      setResendLoading(true);
+      setResendMessage("");
+      setError("");
+
+      await authService.resendVerificationCode(email, purpose[type].purpose);
+
+      setResendMessage("A new verification code has been sent to your email.");
     } catch (error) {
       setError(
         error.message || "Something went wrong. Please try again later."
       );
+    } finally {
+      setResendLoading(false);
     }
   };
 
@@ -56,11 +63,11 @@ const VerificationForm = ({ type, handleVerification, email }) => {
     }
   };
 
-const handleCodeChange = (e) => {
-  setError("");
-  const numericValue = e.target.value.replace(/\D/g, ""); 
-  setCode(numericValue);
-};
+  const handleCodeChange = (e) => {
+    setError("");
+    const numericValue = e.target.value.replace(/\D/g, "");
+    setCode(numericValue);
+  };
 
   const getButtonContent = () => {
     if (loading)
@@ -87,18 +94,20 @@ const handleCodeChange = (e) => {
               </span>
             </div>
 
-{/* Title & Description */}
-<div className="text-center mb-4">
-  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-    {purpose[type].title}
-  </h2>
-  <p className="text-gray-600 dark:text-gray-400">
-    Enter the verification code sent to your email
-  </p>
-  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-    Didn’t see it? Check your <span className="font-medium">Spam</span> or <span className="font-medium">Junk</span> folder.
-  </p>
-</div>
+            {/* Title & Description */}
+            <div className="text-center mb-4">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                {purpose[type].title}
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400">
+                Enter the verification code sent to your email
+              </p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                Didn’t see it? Check your{" "}
+                <span className="font-medium">Spam</span> or{" "}
+                <span className="font-medium">Junk</span> folder.
+              </p>
+            </div>
 
             {/* Form */}
             <form className="space-y-3" onSubmit={onSubmit}>
@@ -152,14 +161,25 @@ const handleCodeChange = (e) => {
             <div className="mt-4 text-center">
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Didn’t receive a code?{" "}
-                <a
-                  disabled={isSuccess}
-                  onClick={() => handleResendVerification()}
-                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors cursor-pointer"
+                <button
+                  type="button"
+                  disabled={isSuccess || resendLoading}
+                  onClick={handleResendVerification}
+                  className={`font-medium transition-colors ${
+                    resendLoading
+                      ? "text-gray-400 cursor-not-allowed"
+                      : "text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 cursor-pointer"
+                  }`}
                 >
-                  Resend
-                </a>
+                  {resendLoading ? "Resending..." : "Resend"}
+                </button>
               </p>
+
+              {resendMessage && (
+                <p className="text-xs text-green-600 dark:text-green-400 mt-2">
+                  {resendMessage}
+                </p>
+              )}
             </div>
           </div>
         </div>
