@@ -17,7 +17,7 @@ const Home = () => {
 
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("projects");
   
   const fetchData = async () => {

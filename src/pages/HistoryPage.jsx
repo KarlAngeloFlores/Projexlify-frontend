@@ -13,7 +13,7 @@ import ViewProjectModal from "../components/history/ViewProjectModal";
 import ViewTaskModal from "../components/history/ViewTaskModal";
 
 const HistoryPage = () => {
-  const [loading, setIsLoading] = useState(false);
+  const [loading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { projectId } = useParams();
