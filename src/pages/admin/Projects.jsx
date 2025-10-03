@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import ProjectTable from "../../components/home/ProjectTable";
+import ProjectTable from "../../components/admin/ProjectTable";
 import projectsService from "../../services/projects";
 import { Search, Table, Filter, ClipboardList, Play, CheckCircle, Trash2, FolderOpen } from "lucide-react";
 import UpdateProjectModal from "../../components/home/UpdateProjectModal";
@@ -245,6 +245,8 @@ const Projects = ({ projects, setProjects }) => {
             projects={filteredProjects}
             handleOpenUpdate={handleOpenUpdate}
             handleOpenDelete={handleOpenDelete}
+            handleHardDelete={handleHardDelete}
+            handleRestore={handleRestore}
           />
         )}
       </div>
