@@ -32,7 +32,7 @@ const Logout = ({ user }) => {
             {user ? user.username : "User"}
           </span>
           <ChevronDown
-            className={`${open ? "rotate-180" : ""} w-4 h-4 transition-all text-gray-600 dark:text-gray-300 hover:bg-gray-200 rounded-full`}
+            className={`${open ? "rotate-180" : ""} w-4 h-4 transition-all text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-full`}
           />
         </div>
         <ThemeToggle />
