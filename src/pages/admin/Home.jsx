@@ -9,7 +9,6 @@ import LoadingScreen from "../../components/LoadingScreen";
 import ErrorPage from "../ErrorPage";
 import userService from "../../services/user";
 
-
 const Home = () => {
 
   const [projects, setProjects] = useState([]);
@@ -20,24 +19,25 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("projects");
   
-  const fetchData = async () => {
-    setLoading(true);
+  const fetchData = async (showLoading = false) => {
+    if (showLoading) setLoading(true);
+
     try {
-        const projects = await projectsService.getAllProjects();
-        const user = await userService.getUser();
-        const users = await userService.getAllUsers();
+      const [projectsRes, userRes, usersRes] = await Promise.all([
+        projectsService.getAllProjects(),
+        userService.getUser(),
+        userService.getAllUsers(),
+      ]);
 
-        setProjects(projects.data);
-        setUser(user.data);
-        setUsers(users.data);
-
-    } catch (error) {
-      setError(error);
-
+      setProjects(projectsRes.data);
+      setUser(userRes.data);
+      setUsers(usersRes.data);
+    } catch (err) {
+      setError(err);
     } finally {
-      setLoading(false);
+      if (showLoading) setLoading(false);
     }
-  }
+  };
 
   const getButtonTabStyle = (tab) =>
     `flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors cursor-pointer ${
@@ -54,7 +54,13 @@ const Home = () => {
     }`;
 
   useEffect(() => {
-    fetchData();
+    fetchData(true);
+
+    const interval = setInterval(() => {
+      fetchData(false);
+    }, 60000);
+
+    return () => clearInterval(interval); 
   }, []);
 
   if(error) {
