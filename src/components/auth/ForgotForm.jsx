@@ -27,17 +27,14 @@ const ForgotForm = ({ handleForgotPassword }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      setPassword((prev) => ({
+        setPassword((prev) => ({
         ...prev,
         loading: true,
         error: "",
         success: "",
       }));
-
+    try {
       await handleForgotPassword(password.newPassword, password.repeatPassword);
-
-      // ✅ show success message
       setPassword((prev) => ({
         ...prev,
         success: "Password changed successfully! Redirecting...",
@@ -45,7 +42,7 @@ const ForgotForm = ({ handleForgotPassword }) => {
         repeatPassword: "",
       }));
 
-      // Redirect after a short delay
+      //redirect to auth
       setTimeout(() => navigate("/auth"), 2000);
     } catch (error) {
       setPassword((prev) => ({
