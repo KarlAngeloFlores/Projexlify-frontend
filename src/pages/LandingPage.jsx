@@ -15,12 +15,12 @@ const LandingPage = () => {
     {
       icon: <Clock className="w-6 h-6 text-white" />,
       title: "History Tracking",
-      description: "Built-in History tracking and scheduling tools to keep your projects on time and on budget."
+      description: "Built-in History tracking to keep your projects on time."
     },
     {
       icon: <Target className="w-6 h-6 text-white" />,
       title: "Goal Management",
-      description: "Set, track, and achieve your project goals with intelligent milestone tracking."
+      description: "Set, track, and achieve your project goals."
     }
   ]
 
