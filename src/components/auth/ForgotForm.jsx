@@ -6,6 +6,7 @@ import "../../styles/animations.css";
 const ForgotForm = ({ handleForgotPassword }) => {
   const navigate = useNavigate();
 
+  const [isChanged, setIsChanged] = useState(false);
   const [password, setPassword] = useState({
     newPassword: "",
     repeatPassword: "",
@@ -42,6 +43,7 @@ const ForgotForm = ({ handleForgotPassword }) => {
         repeatPassword: "",
       }));
 
+      setIsChanged(true);
       //redirect to auth
       setTimeout(() => navigate("/auth"), 2000);
     } catch (error) {
@@ -162,7 +164,7 @@ const ForgotForm = ({ handleForgotPassword }) => {
 
               <button
                 type="submit"
-                disabled={password.loading}
+                disabled={password.loading || isChanged}
                 className="w-full flex justify-center items-center bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-600 dark:to-purple-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 dark:hover:from-blue-700 dark:hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-800 transition-all transform hover:scale-[1.02] shadow-lg cursor-pointer disabled:cursor-not-allowed"
               >
                 {getButtonContent()}
